@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقرير المالي والاجتماعي - عائلات الأيتام</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --primary: #2563eb;
+            --success: #059669;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+        }
+
+        .date-chip {
+            background-color: var(--bg-surface);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--bg-surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-card.primary-stat {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+        }
+
+        .stat-card.primary-stat .stat-title,
+        .stat-card.primary-stat .stat-value {
+            color: white;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .stat-card.primary-stat .stat-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .stat-content {
+            flex: 1;
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .toolbar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* Families Grid */
+        .families-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .family-card {
+            background-color: var(--bg-surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .family-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .card-title-group {
+            flex: 1;
+        }
+
+        .card-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .card-location {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .card-health {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background-color: var(--bg-base);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border-right: 3px solid var(--border-color);
+        }
+
+        .card-health.is-sick {
+            border-right-color: var(--danger);
+            color: var(--danger);
+            font-weight: 700;
+            background-color: var(--danger-light);
+        }
+
+        .card-health.is-healthy {
+            color: var(--text-secondary);
+        }
+
+        .card-expense {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-details {
+            margin-top: auto;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-details:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background-color: var(--bg-surface);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .modal-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-stat-box {
+            background-color: var(--bg-base);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .modal-stat-box span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-stat-box strong {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .children-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .children-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .child-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: var(--bg-base);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .child-item.is-critical {
+            background-color: var(--danger-light);
+            border-color: #fca5a5;
+            color: var(--danger);
+        }
+
+        .child-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(100, 116, 139, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .child-item.is-critical .child-icon {
+            background-color: rgba(220, 38, 38, 0.1);
+            color: var(--danger);
+        }
+
+        .child-name {
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1><i class="fa-solid fa-file-invoice-dollar" style="color: var(--primary); margin-left: 0.5rem;"></i> التقرير المالي والاجتماعي</h1>
+            <div class="date-chip">
+                <i class="fa-regular fa-calendar"></i>
+                <span>يناير 2025 - فبراير 2026</span>
+            </div>
+        </header>
+
+        <main>
+            <section class="stats-grid" id="topStats">
+                <!-- Injected via JS -->
+            </section>
+
+            <section class="toolbar">
+                <div class="toolbar-title">قائمة العائلات</div>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث بالاسم، الموقع، أو الحالة الصحية...">
+                    <i class="fa-solid fa-search"></i>
+                </div>
+            </section>
+
+            <section class="families-grid" id="familiesGrid">
+                <!-- Injected via JS -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">اسم العائلة</div>
+                <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-stats" id="modalStats">
+                    <!-- Injected via JS -->
+                </div>
+                <div class="children-section">
+                    <h3><i class="fa-solid fa-children"></i> قائمة الأبناء</h3>
+                    <div class="children-list" id="modalChildrenList">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Extraction Strict Implementation (120 records as per MD source)
+        // Format: [id, name, age, location, total_spent, phone, widow_health, children_string (pipe separated)]
+        const rawData = [
+            [1, "آمنة حاج درويش", 44, "ادلب", 825, "00905380791258", "", "محمد (25 سنة)|فاطمة (22 سنة)|انس (20 سنة)|معاذ (18 سنة)|حسان (16 سنة)"],
+            [2, "وحيدة كويفات", 49, "حلب", 922.69, "+905510973541", "", "أحمد فراس (25 سنة)|عمر فراس (23 سنة)|عبد الملك فراس (16 سنة)|غنى (19 سنة)|صبا (19 سنة)"],
+            [3, "زهراء حرصوني", 44, "إدلب", 513, "+380943065789", "تعاني من مرض السكري", "عبير (25 سنة)|مصطفى (23 سنة)|محمد (19 سنة)|راما (13 سنة)"],
+            [4, "هدى إدلبي", 45, "إدلب", 273, "+12362451293", "ترعى أخاها من ذوي الاحتياجات الخاصة", "أمين (21 سنة)|عبد الرحمن (20 سنة)|عمر (14 سنة)|محمود (10 سنة)|خديجة (متوفية)|نور (19 سنة)|اسالم (18 سنة)"],
+            [5, "خديجة طحان", 57, "إدلب", 584, "+9647851175244", "", ""],
+            [6, "فاطمة يوسف العلي", 53, "ريف حلب", 534, "+963951760722", "تعاني من حساسية في الصدر والديسك في الظهر", ""],
+            [7, "بشرى الصالح", 28, "إدلب", 75, "+380697008603", "", "عبد الرحمن (10 سنة)|ميلاد (5 سنة)|ماريا (1 سنة)"],
+            [8, "خديجة عبد الحميد الكرمو", 38, "حلب", 305, "+963951258454", "", "طفل (متوفى في الزلزال)"],
+            [9, "راضية إبراهيم غريبي", 57, "إدلب", 584, "+963968355818", "تعاني من الضغط والسكري", "علا (29 سنة)|عهد (27 سنة)|وفاء (25 سنة)|ولاء (24 سنة)|دعاء (22 سنة)|أسماء (20 سنة)|أماني (19 سنة)|يوسف (17 سنة)"],
+            [10, "خديجة الحسين", 31, "حلب", 390, "+963956497214", "تعاني من التصلب اللويحي", "غيث (13 سنة)|شام (9 سنة)"],
+            [11, "رشا رياض رحمون", 37, "إدلب", 494, "+352681519672", "", "محمد (17 سنة)|جميل (15 سنة)|ابتهال (13 سنة - من ذوي الاحتياجات الخاصة)|هادي (9 سنة)|أحمد (7 سنة)"],
+            [12, "رشا فاخوري", 30, "ريف حلب", 319, "+905377927889", "", "وفاء (12 سنة)|عبد الله (11 سنة)"],
+            [13, "تهاني العمر", 34, "إدلب", 502, "+306938093671", "", "رامة (10 سنة)"],
+            [14, "راما محمد زينة", 26, "إدلب", 319, "+963938476240", "", "قتيبة (7 سنة)"],
+            [15, "سارة فهيم زيدان", 33, "إدلب", 369, "+963981338918", "", "إبراهيم (15 سنة)|أسمر (13 سنة)|عبد الرحمن (9 سنة)"],
+            [16, "عهد محمد غزال", 65, "إدلب", 850, "+963986577698", "تعاني من ديسك في الفقرات وتنكس في مفاصل الركبة", "نهى (43 سنة)|أماني (41 سنة)|محمد (40 سنة)|رزان (36 سنة)|ريهام (35 سنة)|عبد الله (31 سنة)|طارق (26 سنة)"],
+            [17, "فاطمة قوادري", 56, "دمشق", 500, "+963981783477", "تعاني من نقص تروية في القلب والضغط وتآكل في غضروف الركبتين", "لما (34 سنة)|محمد خير (33 سنة)|رؤى (30 سنة)|حنين (27 سنة)|نور (23 سنة)|بنان (21 سنة)|جنى (16 سنة)"],
+            [18, "فاطمة شغالة", 40, "إدلب", 800, "غير متوفر", "", "همام (10 سنة)|صفية (9 سنة)"],
+            [19, "مريم أسعد الاسعد", 49, "إدلب", 194, "+306993414549", "تعاني من اضطراب في الغدة", "مهند (28 سنة)|علي (27 سنة)|أسماء (25 سنة)|إسماعيل (20 سنة)|معاذ (16 سنة)"],
+            [20, "منال دعبول الصوص", 42, "إدلب", 509, "+963986675173", "", "أحمد (22 سنة)|ريماز (19 سنة)|محمد (15 سنة)"],
+            [21, "عبير صباغ", 47, "حلب", 357, "+963940586637", "", "عبد الحميد (31 سنة)|منير (30 سنة)|هديل (28 سنة)|أيمن (21 سنة)|عمر (19 سنة)"],
+            [22, "رفاه سقاط", 40, "إدلب", 459, "+963959614020", "", "مصطفى (16 سنة - يعاني من ضمور في النطق)|محمد (15 سنة)|أحمد (15 سنة)|محمود (14 سنة)|عائشة (12 سنة - تعاني من فشل في النمو)"],
+            [23, "سهام كنعان", 56, "دمشق", 1175, "+963934958276", "", "فاتن (35 سنة)|محمد (32 سنة)|رغد (28 سنة)|أحمد (28 سنة)|تسنيم (21 سنة)|أحمد (19 سنة)"],
+            [24, "ضحى طفي", 42, "حلب", 325, "+963930523026", "", "محمد (24 سنة)|ندى (23 سنة)|هبة (19 سنة)|براء (15 سنة)|عمر (12 سنة)"],
+            [25, "غصون طحان", 41, "إدلب", 330, "+09647842739738", "", "البراء (10 سنة)|مها (9 سنة)|عمر (3 سنة)"],
+            [26, "إيمان محمد حليمة", 38, "إدلب", 336, "+306995185993", "", "إسحاق (17 سنة)|سندس (15 سنة)"],
+            [27, "دعاء عبد السلام عرفات", 32, "ريف حلب", 568, "+306971829896", "", "فاطمة الزهراء (14 سنة)|آمنة (11 سنة)"],
+            [28, "لمياء عثمان", 49, "ريف إدلب", 559, "+905362031609", "تعاني من ديسك في الرقبة والظهر", "هديل (29 سنة)|فاطمة (27 سنة)|محمد (26 سنة)|نهى (23 سنة)|عمر (19 سنة)"],
+            [29, "هزار قرني", 43, "إدلب", 459, "+9647855860281", "تعاني من ارتفاع في الضغط", "حلا (10 سنة)"],
+            [30, "رنا السقا", 47, "حلب", 425, "0954851921", "تعاني من قصور في الغدة", "أيهم (26 سنة)|عماد (22 سنة)|فاطمة (14 سنة)"],
+            [31, "يسرى محمد علي", 40, "إدلب", 515, "+963988143034", "", "محمد (15 سنة)|زين العابدين (14 سنة)|بيسان (12 سنة)|روض (11 سنة)"],
+            [32, "نورة الحسن", 34, "حلب", 452, "+963959348650", "", "سلوى (21 سنة)|أمينة (17 سنة)|ملكة (16 سنة)|إسماعيل (15 سنة)|نوري (13 سنة)"],
+            [33, "علياء عصفور", 36, "الباب", 573, "+306949319654", "", "مصطفى (16 سنة)|بيان (13 سنة)"],
+            [34, "سلمى محمد الفيصل", 52, "حمص", 543, "+963936256490", "", "عطية (35 سنة)|ليلى (33 سنة)|عبد الرحمن (متوفى)|ياسين (27 سنة)|إبراهيم (26 سنة)"],
+            [35, "مرام الإخوان", 49, "مرسين", 459, "+905366387916", "تعاني من قصور في الغدة وارتفاع مقاومة الإنسولين", "رياضة (30 سنة)|اياد (27 سنة)|عبد الله (22 سنة)|مايا (19 سنة)"],
+            [36, "زهراء عبو", 44, "مرسين", 206, "+905378214712", "تعاني من مرض السكري", "علي (35 سنة)|عبد الملك (33 سنة)|محمد أمين (31 سنة)|إبراهيم (29 سنة)|محمد ربيع (27 سنة)|بشرى (25 سنة)|سدرة (23 سنة)"],
+            [37, "ثناء ياسين", 53, "كوجالي", 368, "05393682029", "تعاني من ارتفاع في الضغط", "ديمة (32 سنة)|خلود (30 سنة)|محمد (28 سنة)|حلا (26 سنة)|ياسين (24 سنة)|أنوار (20 سنة)|عبود (14 سنة)"],
+            [38, "جميلة شعبان حميدي", 38, "عنتاب", 243, "05396353294", "", "فاطمة (16 سنة)|عبد الهادي (15 سنة)|احمد (11 سنة)|حسن (11 سنة)"],
+            [39, "خانم الرفاعي الوزير", 37, "العثمانية", 409, "+905364374057", "", ""],
+            [40, "مؤمنة عبد الواحد", 39, "مرسين", 183, "05342552542", "", "عبد الله (يعاني من إعاقة جسدية وذهنية)"],
+            [41, "عطاء القاسم", 43, "سكاريا", 1000, "+963982604730", "", "محمد (24 سنة)|ياسين (22 سنة)|صفية (17 سنة)|مريم (15 سنة)"],
+            [42, "هدى حافظ", 55, "كلس", 407, "+905380139200", "", "بلال (32 سنة)|أيمن (30 سنة)|فاطمة (27 سنة)|أمين (24 سنة)"],
+            [43, "هدى أحمد الحلو", 30, "عنتاب", 427, "05312942798", "", "عبد الله (10 سنة)|عبد الرحمن (10 سنة)|فاطمة (8 سنة - تعاني من اختلاج دائم)"],
+            [44, "آمنة العبد الله", 39, "أورفا", 432, "05377035743", "", "نور الهدى (15 سنة)|عبد الله (11 سنة)|أحمد (10 سنة)"],
+            [45, "عائشة آل سليمان", 30, "أضنة", 600, "+905317182470", "تعاني من انزلاق في الفقرات ومشكلة في عظام الركبة", "سير (8 سنة)"],
+            [46, "هالة الصالح", 35, "حلب", 600, "00905345294114", "", "مصطفى (18 سنة)|هبة (15 سنة)|نور الدين (13 سنة)"],
+            [47, "أروى إمام", 36, "عنتاب", 357, "05524363851", "", "مريم (18 سنة)|عبد الرؤوف (14 سنة)"],
+            [48, "غنيمة ذنون يونس", 30, "أنقرة", 335, "+905395921496", "", "براء (8 سنة)"],
+            [49, "إسراء شيخو", 32, "أنقرة", 359, "+905358415103", "", "حسن (11 سنة)"],
+            [50, "وفاء حساني", 41, "تركيا", 750, "+905374215502", "", "خولة (17 سنة)|إكرام (14 سنة)"],
+            [51, "ساجدة الخالدي", 63, "أورفا", 550, "+905438634676", "", "أكثم (38 سنة)|محمد (متوفى بالمعتقل)|أيهم (31 سنة)|أنسام (40 سنة)|وسام (36 سنة)"],
+            [52, "سناء زيادة", 40, "إسطنبول", 575, "05055157578", "", "محمد عامر (19 سنة)|مجاهد (13 سنة)|عبد السلام (6 سنة)"],
+            [53, "بديعة السقا", 42, "إسطنبول", 350, "05346617127", "", "ابن|ابن|ابن|ابن|ابن|ابن|ابن|ابن"],
+            [54, "خديجة الصوران", 40, "أفيون", 321, "05313217997", "تعاني من الديسك وآلام العصب الوركي والتهابات في أعصاب اليد", "عائشة (16 سنة)|محمود (13 سنة)|كوثر (10 سنة)"],
+            [55, "عائدة فضل الدرويش", 43, "أنطاكيا", 552, "05343660115", "", "صالح (16 سنة)"],
+            [56, "نجوى الحسين", 45, "هاتاي", 609, "05051732228", "", "هديل (26 سنة)|يمان (23 سنة)|زينة (19 سنة)|حنين (17 سنة)|محمد (16 سنة)"],
+            [57, "بشرى الدرفيل", 64, "هاتاي", 484, "+905353210820", "تعاني من مرض في القلب", "حسين (47 سنة)|أحمد (45 سنة)|حمزة (42 سنة)|عبد الكريم (39 سنة)|عامر (37 سنة)|هبة (35 سنة)|بلال (31 سنة)|صبا (29 سنة)"],
+            [58, "مروة درويش", 41, "إسطنبول", 125, "غير متوفر", "مريضة سرطان في مراحل متقدمة", "بريفان (19 سنة)|جميل (16 سنة - عنده فتحة بالقلب)"],
+            [59, "مريم دلال", 39, "إدلب", 459, "+963968917374", "", "مرام (12 سنة)"],
+            [60, "مها الفرا", 52, "ليبيا", 573, "+218946374690", "", "آلاء (23 سنة)|أسماء (19 سنة)|أنس (16 سنة)|رغد (14 سنة)"],
+            [61, "إلهام قوجة", 30, "إدلب", 23, "+905364630492", "", "طفل|طفل"],
+            [62, "ربيعة الراعي", 31, "ريف إدلب", 397, "+994403819909", "", "طالب (13 سنة)|أمين (11 سنة)"],
+            [63, "هنادي المصطفى", 23, "الرقة", 678, "+6283128517404", "", "حسين البدر (3 سنة)"],
+            [64, "نسرين فتلون", 38, "حماة", 1050, "+963933841985", "", "نور الهدى (21 سنة)"],
+            [65, "فريال جمعة العزو", 54, "إدلب", 725, "+9647841775388", "تعاني من السكري", "نور (27 سنة)"],
+            [66, "إنعام أبو جديد", 39, "إدلب", 391, "+2250564477993", "تعاني من ارتفاع في ضغط الدم ونقص تروية في القلب", "آية (26 سنة)|إبراهيم (25 سنة)|فراس (23 سنة)"],
+            [67, "حياة قورصة", 48, "إدلب", 475, "05397109665", "تعاني من آلام في الظهر والرقبة والمفاصل ولديها تثبيت في الظهر", "صالح (36 سنة)|مصطفى (34 سنة)|فاطمة (31 سنة)|صهيب (21 سنة)|ابن (متوفى)"],
+            [68, "عائشة علي أبو علي", 36, "ريف حلب", 323, "+352681113517", "", "صهيب (متوفى)|روضة (12 سنة)"],
+            [69, "مريم عبد العال", 51, "إدلب", 2336, "+9647847018172", "تعاني من التهاب مفصل تنكسي ومرض السكري وسرطان الثدي", "بنان (22 سنة)|قدامة (16 سنة)"],
+            [70, "ازدهار الزين", 58, "ريف دمشق", 370, "+963934327842", "", "عمر (25 سنة)|رلى (22 سنة)"],
+            [71, "ليلى الأخرس", 47, "إدلب", 368, "+963935259513", "تعاني من ارتفاع في الضغط", "راما (29 سنة)|عبد السلام (27 سنة)|عبد الرحمن (21 سنة)|محمد نور (16 سنة)|سالم (9 سنة)|شاب (متوفى)"],
+            [72, "جهاد أحمد", 32, "إدلب", 875, "+212769635882", "", "سناء (12 سنة)|يوسف (10 سنة)|سفيان (8 سنة)"],
+            [73, "إسراء عثمان التيناوي", 37, "إدلب", 678, "+34316169595", "", "رهف (17 سنة)|شيماء (16 سنة)|عمار (15 سنة)|صهيب (8 سنة)"],
+            [74, "مرام التيناوي", 45, "إدلب", 678, "+352681502135", "", "فاروق (23 سنة)|مريم (22 سنة)|رقية (18 سنة)"],
+            [75, "مروة أسعد", 32, "ادلب", 357, "+963942096128", "", "عنقاء (10 سنة)|زرقاء (9 سنة)|حور (8 سنة)|شاس (7 سنة)"],
+            [76, "هدى عبد الرحمن رمضان", 43, "إدلب", 434, "+306948738687", "", "منى (17 سنة)|ليان (15 سنة)"],
+            [77, "ريان الشيخ أحمد", 25, "إدلب", 443, "+6281349213472", "تعاني من ارتفاع الشحوم واعتلال عصبي ونقص تروية", "أبرار (4 سنة)"],
+            [78, "فاطمة محمد صالح الخلف", 55, "إدلب", 150, "+447462786358", "", "محمد (34 سنة)|سهام (29 سنة)|خولة (26 سنة)|خلف (24 سنة)"],
+            [79, "ريم بشار زينة", 28, "إدلب", 384, "+889110681352", "", "هنادي (8 سنة)"],
+            [80, "أمل دعاس", 44, "إسطنبول", 1025, "+905522713871", "تعاني من قصور في الغدة وربو تحسسي", "سارة (26 سنة)|خالد (24 سنة)|أحمد (22 سنة)|البراء (17 سنة)|يمن (14 سنة)"],
+            [81, "فاطمة الزهراء عرعور", 38, "أفيون", 86, "05346160847", "", "محمد (17 سنة)|عمر (15 سنة)"],
+            [82, "روضة رضوان", 51, "عنتاب", 195, "+905346331915", "تعاني من فتق في العمود الفقري", ""],
+            [83, "بتول ناصر", 44, "قيصري", 291, "05526490800", "", "غياب (22 سنة)|محمد (20 سنة)|غنى (17 سنة)|راكان (13 سنة)"],
+            [84, "ديمة صالح الحجي", 34, "حلب", 243, "+963962591820", "", "فاطمة (13 سنة)|عطا الله (12 سنة)|إسلام (11 سنة)|عبد الله (10 سنة)"],
+            [85, "إيمان حسين", 31, "إدلب", 343, "+963956937008", "", "فاطمة (10 سنة)|مريم (10 سنة)|أحمد (6 سنة)"],
+            [86, "سدرة المنتهى البظ", 27, "ريف حلب", 283, "+306993350579", "", "أحمد (9 سنة)|سلسبيل (7 سنة)"],
+            [87, "علا الجبلي", 27, "تركيا", 275, "+905524433367", "تعاني من اضطراب في الغدة", "أحمد مراد (10 سنة)"],
+            [88, "شفاء دلوان", 44, "ريف حلب", 425, "+90539239848", "", "عبد الله (26 سنة)|همام (25 سنة)|أروى (23 سنة)|أحمد (21 سنة)|تميم (20 سنة)|لميس (14 سنة)"],
+            [89, "إيمان النعساني", 30, "إدلب", 34, "+963954975266", "", "عبد القادر (12 سنة)|مالك (10 سنة)|نبيلة (8 سنة)|هديل (6 سنة)"],
+            [90, "أسماء صطوف هلال", 42, "الرقة", 34, "+963969137190", "", "نور (20 سنة)|شيماء (16 سنة)|علاء (14 سنة)"],
+            [91, "أم كلثوم إسماعيل", 31, "حلب", 60, "+306931412782", "", "ابن|ابن|ابن"],
+            [92, "أمل عليان", 44, "إدلب", 268, "+9647847015696", "", "ميسرة (8 سنة)"],
+            [93, "حبيبة حسن الحلو", 45, "إدلب", 159, "+352681123545", "تعاني من انقراص في الفقرات وغضروف في الركبتين", "بيان (26 سنة)|يمان (22 سنة)|فاطمة (16 سنة)|إسماعيل (11 سنة)"],
+            [94, "حليمة أسعد", 51, "حلب", 159, "+963996245891", "تعاني من التهاب أذن وسطي مزمن", "يحيى (18 سنة)|علي (18 سنة)|رنا (17 سنة)|حسام (16 سنة)|محمد (14 سنة)|عبد الخالق (13 سنة)"],
+            [95, "حميدة محمد خير نجار", 33, "حلب", 23, "+9647824345144", "تعاني من الروماتيزم", "ضياء الدين (11 سنة - يعاني من اختلاج)"],
+            [96, "خديجة الجدعان", 45, "الحسكة", 26, "+9647842529943", "تعاني من ارتفاع في الضغط", "عبد الرحمن (19 سنة)|مريم (14 سنة)|مصعب (13 سنة)|بكر (12 سنة)|شيماء (8 سنة)"],
+            [97, "خنساء حمادو", 53, "الباب", 23, "+963938004727", "", "محمود (36 سنة)|أحمد (29 سنة)|إيمان (25 سنة)|علي (20 سنة)"],
+            [98, "رغداء دلوان", 49, "سوريا", 293, "+905525288285", "", "ريهام (31 سنة)|حذيفة (26 سنة)|همام (20 سنة)|كنانة (15 سنة)"],
+            [99, "رقية خالد الكروط", 24, "حلب", 252, "+306970554665", "", ""],
+            [100, "ريم الفريح", 41, "حلب", 75, "+963984672614", "تعاني من الربو", "ميس (19 سنة)|عبد الله (17 سنة)|الما (11 سنة)|محمد (4 سنة)"],
+            [101, "صفاء خالد ميمة", 36, "حلب", 23, "+963967826166", "", "نديم (18 سنة)|صهيب (15 سنة - يعاني من الربو)|روان (13 سنة)|ليان (10 سنة)|محمد (2 سنة - يعاني من آفة قلبية)"],
+            [102, "علا نعيم", 41, "إدلب", 50, "00905061474024", "", "ابن (صف سادس)|ابن (صف أول)|ابن (عمره 5 سنوات)"],
+            [103, "غصون عبد العزيز", 41, "ريف دمشق", 350, "+963995051182", "", "علا (19 سنة)|محمد (17 سنة)|ميار (16 سنة)|عمر (12 سنة)|عبد الرحمن (10 سنة)"],
+            [104, "فاتن شيلوك", 35, "دمشق", 188, "+963997946629", "", "محمد زيد (18 سنة)|محمد (13 سنة)"],
+            [105, "فاطمة العيدان", 41, "ريف حلب", 125, "+905358388329", "تعاني من اضطراب في الغدة", "نور الدين (23 سنة)|شيماء (20 سنة - تعاني من إعاقة حركية)"],
+            [106, "فاطمة الفاف", 44, "ريف حلب", 159, "+963932605687", "", ""],
+            [107, "فاطمة حيلاني", 27, "حلب", 678, "+963935505146", "", "مريم (12 سنة)|جولي (10 سنة)|أحمد (8 سنة)"],
+            [108, "فاطمة أحمد بيضون", 27, "حلب", 34, "+963969474011", "تعاني من قرحة في المعدة والقولون العصبي ومشاكل في أعصاب اليد", "محمد (متوفى)|آلاء (8 سنة)"],
+            [109, "فاطمة تامر المنال", 24, "ريف حلب", 193, "0984005872", "تعاني من الشقيقة ورمل في الكلى", ""],
+            [110, "فاطمة أمينو", 31, "إدلب", 84, "+212714177676", "", "ثلاثة متوفون في الزلزال|عبد الرحمن (3 سنة)|مريم بلشة (1 سنة)"],
+            [111, "فاطمة علي الخضر", 26, "ريف حلب", 150, "+306906963406", "", "ابن|ابن|ابن"],
+            [112, "فاطمة محمد هلال", 41, "ادلب", 57, "00905054190083", "", "ابن|ابن|ابن"],
+            [113, "منى عزوز", 40, "إدلب", 159, "+963982455049", "", "ترعى ابنة أختها (10 سنوات)"],
+            [114, "ناهد ثلجيني", 37, "حلب", 125, "+963934859476", "", "سليم (16 سنة)|عائشة (14 سنة)|رزان (10 سنة)"],
+            [115, "خولة الموسى", 46, "أنقرة", 114, "05388568095", "", "ابن|ابن|ابن|ابن"],
+            [116, "رجاء صطوف السلوم", 28, "إزمير", 218, "05013201448", "", "إيمان (30 سنة)|علي (28 سنة)|حسان (27 سنة)|بشرى (25 سنة)|ماجد (21 سنة)"],
+            [117, "رغد الناشف", 24, "حلب", 23, "05379911845", "", "رهف (7 سنة)|مريم (6 سنة)"],
+            [118, "ضحى السكني", 39, "حلب", 46, "+905349858863", "", ""],
+            [119, "عائشة حمدان", 30, "إزمير", 26, "+905382808347", "", "ابن|ابن|ابن"],
+            [120, "هناء حاج علي", 31, "إسطنبول", 234, "05314367027", "", "ليان شاكر (9 سنة)"]
+        ];
+
+        let familiesData = [];
+
+        const sickKeywords = ["متوف", "إعاق", "فشل", "اختلاج", "قلب", "ربو", "مرض", "آفة", "احتياجات", "ضمور", "سرطان"];
+
+        function processData() {
+            familiesData = rawData.map(row => {
+                const childrenArray = row[7] ? row[7].split('|').filter(c => c.trim() !== '') : [];
+                return {
+                    id: row[0],
+                    name: row[1],
+                    age: row[2],
+                    location: row[3],
+                    total: parseFloat(row[4]),
+                    phone: row[5] || "غير متوفر",
+                    health: row[6].trim(),
+                    children: childrenArray
+                };
+            });
+            updateStats();
+            renderFamilies(familiesData);
+        }
+
+        function isWidowSick(family) {
+            return family.health.length > 0;
+        }
+
+        function isChildSick(childString) {
+            return sickKeywords.some(keyword => childString.includes(keyword));
+        }
+
+        function hasSickChild(family) {
+            return family.children.some(child => isChildSick(child));
+        }
+
+        function getSortedFamilies(data) {
+            return [...data].sort((a, b) => {
+                const aSick = isWidowSick(a);
+                const bSick = isWidowSick(b);
+                if (aSick && !bSick) return -1;
+                if (!aSick && bSick) return 1;
+
+                const aSickChild = hasSickChild(a);
+                const bSickChild = hasSickChild(b);
+                if (aSickChild && !bSickChild) return -1;
+                if (!aSickChild && bSickChild) return 1;
+
+                return b.total - a.total;
+            });
+        }
+
+        function updateStats() {
+            const totalExpense = familiesData.reduce((sum, f) => sum + f.total, 0);
+            const totalFamilies = familiesData.length;
+            const totalChildren = familiesData.reduce((sum, f) => sum + f.children.length, 0);
+
+            const statsHtml = `
+                <div class="stat-card primary-stat">
+                    <div class="stat-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-title">إجمالي المصروفات</div>
+                        <div class="stat-value">$${totalExpense.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-title">إجمالي العائلات (الأرامل)</div>
+                        <div class="stat-value">${totalFamilies}</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-child"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-title">إجمالي الأبناء (الأيتام)</div>
+                        <div class="stat-value">${totalChildren}</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('topStats').innerHTML = statsHtml;
+        }
+
+        function renderFamilies(data) {
+            const grid = document.getElementById('familiesGrid');
+            const sortedData = getSortedFamilies(data);
+
+            grid.innerHTML = sortedData.map(family => {
+                const isSick = isWidowSick(family);
+                const healthClass = isSick ? 'is-sick' : 'is-healthy';
+                const healthText = isSick ? family.health : 'حالة صحية طبيعية';
+                
+                return `
+                    <div class="family-card">
+                        <div class="card-header">
+                            <div class="avatar">${family.name.charAt(0)}</div>
+                            <div class="card-title-group">
+                                <div class="card-name">${family.name}</div>
+                                <div class="card-location"><i class="fa-solid fa-location-dot"></i> ${family.location}</div>
+                            </div>
+                        </div>
+                        <div class="card-health ${healthClass}">
+                            <i class="fa-solid ${isSick ? 'fa-staff-snake' : 'fa-check-circle'}"></i> ${healthText}
+                        </div>
+                        <div class="card-expense">
+                            <i class="fa-solid fa-money-bill-wave"></i> $${family.total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                        </div>
+                        <button class="btn-details" onclick="openModal(${family.id})">عرض التفاصيل</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openModal(id) {
+            const family = familiesData.find(f => f.id === id);
+            if (!family) return;
+
+            document.getElementById('modalTitle').textContent = `${family.name} - ${family.location}`;
+            
+            document.getElementById('modalStats').innerHTML = `
+                <div class="modal-stat-box">
+                    <span>العمر التقديري</span>
+                    <strong>${family.age} سنة</strong>
+                </div>
+                <div class="modal-stat-box">
+                    <span>عدد الأبناء</span>
+                    <strong>${family.children.length}</strong>
+                </div>
+                <div class="modal-stat-box">
+                    <span>رقم الجوال</span>
+                    <strong style="direction: ltr; display: inline-block;">${family.phone}</strong>
+                </div>
+            `;
+
+            // Sort children: Sick first
+            const sortedChildren = [...family.children].sort((a, b) => {
+                const aSick = isChildSick(a);
+                const bSick = isChildSick(b);
+                if (aSick && !bSick) return -1;
+                if (!aSick && bSick) return 1;
+                return 0;
+            });
+
+            const childrenListEl = document.getElementById('modalChildrenList');
+            if (sortedChildren.length === 0) {
+                childrenListEl.innerHTML = `<div class="empty-state">لا يوجد أبناء مسجلين</div>`;
+            } else {
+                childrenListEl.innerHTML = sortedChildren.map(child => {
+                    const critical = isChildSick(child);
+                    const icon = critical ? 'fa-notes-medical' : 'fa-user';
+                    const cssClass = critical ? 'is-critical' : '';
+                    return `
+                        <div class="child-item ${cssClass}">
+                            <div class="child-icon"><i class="fa-solid ${icon}"></i></div>
+                            <div class="child-name">${child}</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = familiesData.filter(f => 
+                f.name.toLowerCase().includes(term) || 
+                f.location.toLowerCase().includes(term) || 
+                f.health.toLowerCase().includes(term)
+            );
+            renderFamilies(filtered);
+        });
+
+        // Init
+        window.addEventListener('DOMContentLoaded', processData);
+    </script>
+</body>
+</html>
