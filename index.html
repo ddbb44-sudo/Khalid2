@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التقرير المالي والاجتماعي - عائلات الأيتام</title>
+    <title>تقرير العائلات المكفولة - أرامل وأيتام</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-base: #f8fafc;
+            --bg-base: #f5f5f4;
             --bg-surface: #ffffff;
-            --primary: #2563eb;
-            --success: #059669;
-            --danger: #dc2626;
-            --danger-light: #fee2e2;
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+            --primary-solid: #2563eb;
+            --primary-soft: #dbeafe;
+            --accent: #475569;
+            --warning: #a16207;
+            --danger: #991b1b;
+            --danger-light: #fef2f2;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --total-paid-bg: linear-gradient(135deg, #2563eb, #1d4ed8);
+            --total-paid-text: #ffffff;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'IBM Plex Sans Arabic', sans-serif;
         }
 
@@ -32,134 +34,121 @@
             background-color: var(--bg-base);
             color: var(--text-primary);
             line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
             padding: 2rem;
         }
 
-        /* Header */
-        .header {
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
         }
 
-        .header h1 {
-            font-size: 1.8rem;
+        h1 {
+            font-size: 1.5rem;
             color: var(--text-primary);
         }
 
-        .date-chip {
-            background-color: var(--bg-surface);
+        .period-card {
+            background: var(--bg-surface);
             padding: 0.5rem 1rem;
-            border-radius: 999px;
-            font-size: 0.9rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            font-size: 0.875rem;
             color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            border: 1px solid #e2e8f0;
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .stat-card {
-            background-color: var(--bg-surface);
+            background: var(--bg-surface);
             padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            flex-direction: column;
+            gap: 0.5rem;
+            border: 1px solid #e2e8f0;
         }
 
-        .stat-card.primary-stat {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-            color: white;
+        .stat-card:first-child {
+            background: var(--total-paid-bg);
+            color: var(--total-paid-text);
+            border: none;
         }
 
-        .stat-card.primary-stat .stat-title,
-        .stat-card.primary-stat .stat-value {
-            color: white;
+        .stat-card:first-child .stat-title,
+        .stat-card:first-child .stat-icon {
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+        .stat-card:first-child .stat-value {
+            color: var(--total-paid-text);
+        }
+
+        .stat-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background-color: rgba(37, 99, 235, 0.1);
-            color: var(--primary);
-        }
-
-        .stat-card.primary-stat .stat-icon {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .stat-content {
-            flex: 1;
         }
 
         .stat-title {
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             color: var(--text-secondary);
-            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            color: var(--primary-solid);
+            font-size: 1.25rem;
         }
 
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.875rem;
             font-weight: 700;
             color: var(--text-primary);
         }
 
-        /* Toolbar */
         .toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
+            background: var(--bg-surface);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
         }
 
-        .toolbar-title {
+        .toolbar h2 {
             font-size: 1.25rem;
             font-weight: 600;
         }
 
         .search-box {
             position: relative;
-            min-width: 300px;
+            width: 300px;
         }
 
         .search-box input {
             width: 100%;
             padding: 0.75rem 1rem 0.75rem 2.5rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.95rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
             outline: none;
+            font-family: inherit;
             transition: border-color 0.2s;
         }
 
         .search-box input:focus {
-            border-color: var(--primary);
+            border-color: var(--primary-solid);
         }
 
         .search-box i {
@@ -167,10 +156,9 @@
             left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-secondary);
+            color: #94a3b8;
         }
 
-        /* Families Grid */
         .families-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -178,170 +166,165 @@
         }
 
         .family-card {
-            background-color: var(--bg-surface);
+            background: var(--bg-surface);
             border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
             display: flex;
             flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .family-card:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
 
         .card-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1rem;
         }
 
-        .avatar {
+        .avatar-circle {
             width: 48px;
             height: 48px;
-            background-color: rgba(37, 99, 235, 0.1);
-            color: var(--primary);
             border-radius: 50%;
+            background: var(--primary-soft);
+            color: var(--primary-solid);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.25rem;
             font-weight: 700;
-            font-size: 1.2rem;
+            flex-shrink: 0;
         }
 
-        .card-title-group {
-            flex: 1;
-        }
-
-        .card-name {
-            font-weight: 700;
+        .family-info h3 {
+            font-size: 1.1rem;
             color: var(--text-primary);
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.25rem;
         }
 
-        .card-location {
-            font-size: 0.85rem;
+        .family-info p {
+            font-size: 0.875rem;
             color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
         }
 
-        .card-health {
-            margin-bottom: 1rem;
+        .status-box {
             padding: 0.75rem;
-            background-color: var(--bg-base);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            border-right: 3px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-base);
+            font-size: 0.875rem;
+            border: 1px solid #f1f5f9;
         }
 
-        .card-health.is-sick {
-            border-right-color: var(--danger);
+        .status-danger {
             color: var(--danger);
             font-weight: 700;
-            background-color: var(--danger-light);
+            background: var(--danger-light);
+            border-color: #fecaca;
         }
 
-        .card-health.is-healthy {
+        .status-normal {
             color: var(--text-secondary);
         }
 
-        .card-expense {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
+        .card-footer {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .total-amount {
+            font-weight: 700;
+            color: var(--warning);
+            font-size: 1.1rem;
         }
 
         .btn-details {
-            margin-top: auto;
-            width: 100%;
-            padding: 0.75rem;
-            background-color: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            border-radius: 8px;
-            font-weight: 600;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+            font-family: inherit;
         }
 
         .btn-details:hover {
-            background-color: var(--primary);
-            color: white;
+            opacity: 0.9;
         }
 
-        /* Modal */
+        /* Modal Styles */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(15, 23, 42, 0.6);
-            display: flex;
+            background: rgba(31, 41, 55, 0.7);
+            display: none;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
             z-index: 1000;
-            padding: 1rem;
+            backdrop-filter: blur(4px);
         }
 
         .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
+            display: flex;
         }
 
-        .modal-container {
-            background-color: var(--bg-surface);
-            width: 100%;
+        .modal-content {
+            background: var(--bg-surface);
+            width: 90%;
             max-width: 600px;
             border-radius: 12px;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
             max-height: 90vh;
             display: flex;
             flex-direction: column;
-            transform: translateY(20px);
-            transition: transform 0.3s;
-        }
-
-        .modal-overlay.active .modal-container {
-            transform: translateY(0);
+            overflow: hidden;
         }
 
         .modal-header {
             padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: var(--bg-base);
         }
 
-        .modal-title {
+        .modal-header h2 {
             font-size: 1.25rem;
-            font-weight: 700;
+            color: var(--text-primary);
         }
 
-        .modal-close {
+        .modal-header .location {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-right: 0.5rem;
+        }
+
+        .btn-close {
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: color 0.2s;
+            padding: 0.5rem;
         }
 
-        .modal-close:hover {
+        .btn-close:hover {
             color: var(--danger);
         }
 
@@ -350,35 +333,68 @@
             overflow-y: auto;
         }
 
-        .modal-stats {
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
             margin-bottom: 2rem;
         }
 
-        .modal-stat-box {
-            background-color: var(--bg-base);
+        .info-item {
+            background: var(--bg-base);
             padding: 1rem;
             border-radius: 8px;
             text-align: center;
+            border: 1px solid #e2e8f0;
         }
 
-        .modal-stat-box span {
+        .info-item span {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.25rem;
         }
 
-        .modal-stat-box strong {
+        .info-item strong {
             font-size: 1.1rem;
             color: var(--text-primary);
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .financial-grid {
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .details-section {
+            background: var(--bg-base);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+
+        .details-section h3 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .details-section p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
         .children-section h3 {
             font-size: 1.1rem;
             margin-bottom: 1rem;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -387,98 +403,144 @@
         .children-list {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
         .child-item {
+            padding: 1rem;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1rem;
-            background-color: var(--bg-base);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            border: 1px solid #e2e8f0;
         }
 
-        .child-item.is-critical {
+        .child-item.child-danger {
             background-color: var(--danger-light);
-            border-color: #fca5a5;
             color: var(--danger);
-        }
-
-        .child-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: rgba(100, 116, 139, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-        }
-
-        .child-item.is-critical .child-icon {
-            background-color: rgba(220, 38, 38, 0.1);
-            color: var(--danger);
-        }
-
-        .child-name {
+            border-color: #fecaca;
             font-weight: 500;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
+        .child-item.child-normal {
+            background-color: var(--bg-surface);
+            color: var(--text-primary);
         }
 
+        .child-icon {
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .toolbar { flex-direction: column; gap: 1rem; align-items: stretch; }
+            .search-box { width: 100%; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header class="header">
-            <h1><i class="fa-solid fa-file-invoice-dollar" style="color: var(--primary); margin-left: 0.5rem;"></i> التقرير المالي والاجتماعي</h1>
-            <div class="date-chip">
-                <i class="fa-regular fa-calendar"></i>
-                <span>يناير 2025 - فبراير 2026</span>
+    <header>
+        <h1>التقرير المالي والاجتماعي للعائلات المكفولة</h1>
+        <div class="period-card"><i class="fa-regular fa-calendar-alt"></i> حتى 26 فبراير 2026</div>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-title">إجمالي المصروفات</span>
+                <i class="fa-solid fa-dollar-sign stat-icon"></i>
             </div>
-        </header>
+            <div class="stat-value" id="totalExpenses">$0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-title">إجمالي العائلات (الأرامل)</span>
+                <i class="fa-solid fa-users stat-icon"></i>
+            </div>
+            <div class="stat-value" id="totalFamilies">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-title">إجمالي الأبناء (الأيتام)</span>
+                <i class="fa-solid fa-child stat-icon"></i>
+            </div>
+            <div class="stat-value" id="totalChildren">0</div>
+        </div>
+    </div>
 
-        <main>
-            <section class="stats-grid" id="topStats">
-                <!-- Injected via JS -->
-            </section>
+    <div class="toolbar">
+        <h2>قائمة العائلات</h2>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="ابحث بالاسم، الموقع، أو المرض...">
+            <i class="fa-solid fa-search"></i>
+        </div>
+    </div>
 
-            <section class="toolbar">
-                <div class="toolbar-title">قائمة العائلات</div>
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="ابحث بالاسم، الموقع، أو الحالة الصحية...">
-                    <i class="fa-solid fa-search"></i>
-                </div>
-            </section>
-
-            <section class="families-grid" id="familiesGrid">
-                <!-- Injected via JS -->
-            </section>
-        </main>
+    <div class="families-grid" id="familiesGrid">
+        <!-- Cards injected via JS -->
     </div>
 
     <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-container">
+    <div class="modal-overlay" id="familyModal">
+        <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title" id="modalTitle">اسم العائلة</div>
-                <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                <div>
+                    <h2><span id="modalName">الاسم</span> <span class="location" id="modalLocation">(الموقع)</span></h2>
+                </div>
+                <button class="btn-close" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
             </div>
             <div class="modal-body">
-                <div class="modal-stats" id="modalStats">
-                    <!-- Injected via JS -->
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span>العمر التقديري</span>
+                        <strong id="modalAge">-</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>عدد الأبناء</span>
+                        <strong id="modalChildrenCount">0</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>رقم الجوال</span>
+                        <strong id="modalPhone" style="direction: ltr;">-</strong>
+                    </div>
                 </div>
+
+                <div class="info-grid financial-grid">
+                    <div class="info-item">
+                        <span>إجمالي الكفالة</span>
+                        <strong id="modalTotal">-</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>عدد الأشهر</span>
+                        <strong id="modalMonths">-</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>متوسط الشهر</span>
+                        <strong id="modalAvg">-</strong>
+                    </div>
+                    <div class="info-item" id="modalMedicalDiv" style="display: none; border-color: var(--danger); background: var(--danger-light);">
+                        <span style="color: var(--danger);">المدفوع للعلاج</span>
+                        <strong id="modalMedical" style="color: var(--danger);">-</strong>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fa-solid fa-notes-medical"></i> الوضع المعيشي والصحي</h3>
+                    <p id="modalLiving">-</p>
+                </div>
+                
+                <div class="details-section" id="modalWorkDiv" style="display: none;">
+                    <h3><i class="fa-solid fa-briefcase"></i> العمل الوظيفي</h3>
+                    <p id="modalWork">-</p>
+                </div>
+
                 <div class="children-section">
-                    <h3><i class="fa-solid fa-children"></i> قائمة الأبناء</h3>
+                    <h3><i class="fa-solid fa-children"></i> قائمة الأبناء (الأيتام)</h3>
                     <div class="children-list" id="modalChildrenList">
-                        <!-- Injected via JS -->
+                        <!-- Children injected via JS -->
                     </div>
                 </div>
             </div>
@@ -486,310 +548,295 @@
     </div>
 
     <script>
-        // Data Extraction Strict Implementation (120 records as per MD source)
-        // Format: [id, name, age, location, total_spent, phone, widow_health, children_string (pipe separated)]
-        const rawData = [
-            [1, "آمنة حاج درويش", 44, "ادلب", 825, "+905380791258", "", "محمد (25 سنة)|فاطمة (22 سنة)|انس (20 سنة)|معاذ (18 سنة)|حسان (16 سنة)"],
-            [2, "وحيدة كويفات", 49, "حلب", 922.69, "+905510973541", "", "أحمد فراس (25 سنة)|عمر فراس (23 سنة)|عبد الملك فراس (16 سنة)|غنى (19 سنة)|صبا (19 سنة)"],
-            [3, "زهراء حرصوني", 44, "إدلب", 513, "+380943065789", "تعاني من مرض السكري", "عبير (25 سنة)|مصطفى (23 سنة)|محمد (19 سنة)|راما (13 سنة)"],
-            [4, "هدى إدلبي", 45, "إدلب", 273, "+12362451293", "ترعى أخاها من ذوي الاحتياجات الخاصة", "أمين (21 سنة)|عبد الرحمن (20 سنة)|عمر (14 سنة)|محمود (10 سنة)|خديجة (متوفية)|نور (19 سنة)|اسالم (18 سنة)"],
-            [5, "خديجة طحان", 57, "إدلب", 584, "+9647851175244", "", ""],
-            [6, "فاطمة يوسف العلي", 53, "ريف حلب", 534, "+963951760722", "تعاني من حساسية في الصدر والديسك في الظهر", ""],
-            [7, "بشرى الصالح", 28, "إدلب", 75, "+306970086038", "", "عبد الرحمن (10 سنة)|ميلاد (5 سنة)|ماريا (1 سنة)"],
-            [8, "خديجة عبد الحميد الكرمو", 38, "حلب", 305, "+963951258454", "", "طفل (متوفى في الزلزال)"],
-            [9, "راضية إبراهيم غريبي", 57, "إدلب", 584, "+963968355818", "تعاني من الضغط والسكري", "علا (29 سنة)|عهد (27 سنة)|وفاء (25 سنة)|ولاء (24 سنة)|دعاء (22 سنة)|أسماء (20 سنة)|أماني (19 سنة)|يوسف (17 سنة)"],
-            [10, "خديجة الحسين", 31, "حلب", 390, "+963956497214", "تعاني من التصلب اللويحي", "غيث (13 سنة)|شام (9 سنة)"],
-            [11, "رشا رياض رحمون", 37, "إدلب", 494, "+352681519672", "", "محمد (17 سنة)|جميل (15 سنة)|ابتهال (13 سنة - من ذوي الاحتياجات الخاصة)|هادي (9 سنة)|أحمد (7 سنة)"],
-            [12, "رشا فاخوري", 30, "ريف حلب", 319, "+905377927889", "", "وفاء (12 سنة)|عبد الله (11 سنة)"],
-            [13, "تهاني العمر", 34, "إدلب", 502, "+306938093671", "", "رامة (10 سنة)"],
-            [14, "راما محمد زينة", 26, "إدلب", 319, "+963938476240", "", "قتيبة (7 سنة)"],
-            [15, "سارة فهيم زيدان", 33, "إدلب", 369, "+963981338918", "", "إبراهيم (15 سنة)|أسمر (13 سنة)|عبد الرحمن (9 سنة)"],
-            [16, "عهد محمد غزال", 65, "إدلب", 850, "+963986577698", "تعاني من ديسك في الفقرات وتنكس في مفاصل الركبة", "نهى (43 سنة)|أماني (41 سنة)|محمد (40 سنة)|رزان (36 سنة)|ريهام (35 سنة)|عبد الله (31 سنة)|طارق (26 سنة)"],
-            [17, "فاطمة قوادري", 56, "دمشق", 500, "+963981783477", "تعاني من نقص تروية في القلب والضغط وتآكل في غضروف الركبتين", "لما (34 سنة)|محمد خير (33 سنة)|رؤى (30 سنة)|حنين (27 سنة)|نور (23 سنة)|بنان (21 سنة)|جنى (16 سنة)"],
-            [18, "فاطمة شغالة", 40, "إدلب", 800, "غير متوفر", "", "همام (10 سنة)|صفية (9 سنة)"],
-            [19, "مريم أسعد الاسعد", 49, "إدلب", 194, "+3069934164549", "تعاني من اضطراب في الغدة", "مهند (28 سنة)|علي (27 سنة)|أسماء (25 سنة)|إسماعيل (20 سنة)|معاذ (16 سنة)"],
-            [20, "منال دعبول الصوص", 42, "إدلب", 509, "+963986675173", "", "أحمد (22 سنة)|ريماز (19 سنة)|محمد (15 سنة)"],
-            [21, "عبير صباغ", 47, "حلب", 357, "+963940586637", "", "عبد الحميد (31 سنة)|منير (30 سنة)|هديل (28 سنة)|أيمن (21 سنة)|عمر (19 سنة)"],
-            [22, "رفاه سقاط", 40, "إدلب", 459, "+963959614020", "", "مصطفى (16 سنة - يعاني من ضمور في النطق)|محمد (15 سنة)|أحمد (15 سنة)|محمود (14 سنة)|عائشة (12 سنة - تعاني من فشل في النمو)"],
-            [23, "سهام كنعان", 56, "دمشق", 1175, "+963934958276", "", "فاتن (35 سنة)|محمد (32 سنة)|رغد (28 سنة)|أحمد (28 سنة)|تسنيم (21 سنة)|أحمد (19 سنة)"],
-            [24, "ضحى طفي", 42, "حلب", 325, "+963930523026", "", "محمد (24 سنة)|ندى (23 سنة)|هبة (19 سنة)|براء (15 سنة)|عمر (12 سنة)"],
-            [25, "غصون طحان", 41, "إدلب", 330, "+9647842739738", "", "البراء (10 سنة)|مها (9 سنة)|عمر (3 سنة)"],
-            [26, "إيمان محمد حليمة", 38, "إدلب", 336, "+306995185993", "", "إسحاق (17 سنة)|سندس (15 سنة)"],
-            [27, "دعاء عبد السلام عرفات", 32, "ريف حلب", 568, "+3069718269896", "", "فاطمة الزهراء (14 سنة)|آمنة (11 سنة)"],
-            [28, "لمياء عثمان", 49, "ريف إدلب", 559, "+901620353609", "تعاني من ديسك في الرقبة والظهر", "هديل (29 سنة)|فاطمة (27 سنة)|محمد (26 سنة)|نهى (23 سنة)|عمر (19 سنة)"],
-            [29, "هزار قرني", 43, "إدلب", 459, "+9647855860281", "تعاني من ارتفاع في الضغط", "حلا (10 سنة)"],
-            [30, "رنا السقا", 47, "حلب", 425, "+954851921", "تعاني من قصور في الغدة", "أيهم (26 سنة)|عماد (22 سنة)|فاطمة (14 سنة)"],
-            [31, "يسرى محمد علي", 40, "إدلب", 515, "+963988143034", "", "محمد (15 سنة)|زين العابدين (14 سنة)|بيسان (12 سنة)|روض (11 سنة)"],
-            [32, "نورة الحسن", 34, "حلب", 452, "+963959348650", "", "سلوى (21 سنة)|أمينة (17 سنة)|ملكة (16 سنة)|إسماعيل (15 سنة)|نوري (13 سنة)"],
-            [33, "علياء عصفور", 36, "الباب", 573, "+306949319654", "", "مصطفى (16 سنة)|بيان (13 سنة)"],
-            [34, "سلمى محمد الفيصل", 52, "حمص", 543, "+963936256490", "", "عطية (35 سنة)|ليلى (33 سنة)|عبد الرحمن (متوفى)|ياسين (27 سنة)|إبراهيم (26 سنة)"],
-            [35, "مرام الإخوان", 49, "مرسين", 459, "+901679638536", "تعاني من قصور في الغدة وارتفاع مقاومة الإنسولين", "رياضة (30 سنة)|اياد (27 سنة)|عبد الله (22 سنة)|مايا (19 سنة)"],
-            [36, "زهراء عبو", 44, "مرسين", 206, "+901247821537", "تعاني من مرض السكري", "علي (35 سنة)|عبد الملك (33 سنة)|محمد أمين (31 سنة)|إبراهيم (29 سنة)|محمد ربيع (27 سنة)|بشرى (25 سنة)|سدرة (23 سنة)"],
-            [37, "ثناء ياسين", 53, "كوجالي", 368, "+5393682029", "تعاني من ارتفاع في الضغط", "ديمة (32 سنة)|خلود (30 سنة)|محمد (28 سنة)|حلا (26 سنة)|ياسين (24 سنة)|أنوار (20 سنة)|عبود (14 سنة)"],
-            [38, "جميلة شعبان حميدي", 38, "عنتاب", 243, "+5396353294", "", "فاطمة (16 سنة)|عبد الهادي (15 سنة)|احمد (11 سنة)|حسن (11 سنة)"],
-            [39, "خانم الرفاعي الوزير", 37, "العثمانية", 409, "+905404375736", "", ""],
-            [40, "مؤمنة عبد الواحد", 39, "مرسين", 183, "+905342552542", "", "عبد الله (يعاني من إعاقة جسدية وذهنية)"],
-            [41, "عطاء القاسم", 43, "سكاريا", 1000, "+963982604730", "", "محمد (24 سنة)|ياسين (22 سنة)|صفية (17 سنة)|مريم (15 سنة)"],
-            [42, "هدى حافظ", 55, "كلس", 407, "+909201353800", "", "بلال (32 سنة)|أيمن (30 سنة)|فاطمة (27 سنة)|أمين (24 سنة)"],
-            [43, "هدى أحمد الحلو", 30, "عنتاب", 427, "+905312942798", "", "عبد الله (10 سنة)|عبد الرحمن (10 سنة)|فاطمة (8 سنة - تعاني من اختلاج دائم)"],
-            [44, "آمنة العبد الله", 39, "أورفا", 432, "+905377035743", "", "نور الهدى (15 سنة)|عبد الله (11 سنة)|أحمد (10 سنة)"],
-            [45, "عائشة آل سليمان", 30, "أضنة", 600, "+907024718531", "تعاني من انزلاق في الفقرات ومشكلة في عظام الركبة", "سير (8 سنة)"],
-            [46, "هالة الصالح", 35, "حلب", 600, "+905345294114", "", "مصطفى (18 سنة)|هبة (15 سنة)|نور الدين (13 سنة)"],
-            [47, "أروى إمام", 36, "عنتاب", 357, "+905524363851", "", "مريم (18 سنة)|عبد الرؤوف (14 سنة)"],
-            [48, "غنيمة ذنون يونس", 30, "أنقرة", 335, "+909614592539", "", "براء (8 سنة)"],
-            [49, "إسراء شيخو", 32, "أنقرة", 359, "+903518415350", "", "حسن (11 سنة)"],
-            [50, "وفاء حساني", 41, "تركيا", 750, "+902554215370", "", "خولة (17 سنة)|إكرام (14 سنة)"],
-            [51, "ساجدة الخالدي", 63, "أورفا", 550, "+907646863543", "", "أكثم (38 سنة)|محمد (متوفى بالمعتقل)|أيهم (31 سنة)|أنسام (40 سنة)|وسام (36 سنة)"],
-            [52, "سناء زيادة", 40, "إسطنبول", 575, "+905055157578", "", "محمد عامر (19 سنة)|مجاهد (13 سنة)|عبد السلام (6 سنة)"],
-            [53, "بديعة السقا", 42, "إسطنبول", 350, "+905346617127", "", "ابن|ابن|ابن|ابن|ابن|ابن|ابن|ابن"],
-            [54, "خديجة الصوران", 40, "أفيون", 321, "+905313217997", "تعاني من الديسك وآلام العصب الوركي والتهابات في أعصاب اليد", "عائشة (16 سنة)|محمود (13 سنة)|كوثر (10 سنة)"],
-            [55, "عائدة فضل الدرويش", 43, "أنطاكيا", 552, "+905343660115", "", "صالح (16 سنة)"],
-            [56, "نجوى الحسين", 45, "هاتاي", 609, "+905051732228", "", "هديل (26 سنة)|يمان (23 سنة)|زينة (19 سنة)|حنين (17 سنة)|محمد (16 سنة)"],
-            [57, "بشرى الدرفيل", 64, "هاتاي", 484, "+902008321535", "تعاني من مرض في القلب", "حسين (47 سنة)|أحمد (45 سنة)|حمزة (42 سنة)|عبد الكريم (39 سنة)|عامر (37 سنة)|هبة (35 سنة)|بلال (31 سنة)|صبا (29 سنة)"],
-            [58, "مروة درويش", 41, "إسطنبول", 125, "غير متوفر", "مريضة سرطان في مراحل متقدمة", "بريفان (19 سنة)|جميل (16 سنة - عنده فتحة بالقلب)"],
-            [59, "مريم دلال", 39, "إدلب", 459, "+963968917374", "", "مرام (12 سنة)"],
-            [60, "مها الفرا", 52, "ليبيا", 573, "+218946374690", "", "آلاء (23 سنة)|أسماء (19 سنة)|أنس (16 سنة)|رغد (14 سنة)"],
-            [61, "إلهام قوجة", 30, "إدلب", 23, "+905364630492", "", "طفل|طفل"],
-            [62, "ربيعة الراعي", 31, "ريف إدلب", 397, "+994099938140", "", "طالب (13 سنة)|أمين (11 سنة)"],
-            [63, "هنادي المصطفى", 23, "الرقة", 678, "+6283128517404", "", "حسين البدر (3 سنة)"],
-            [64, "نسرين فتلون", 38, "حماة", 1050, "+963933841985", "", "نور الهدى (21 سنة)"],
-            [65, "فريال جمعة العزو", 54, "إدلب", 725, "+9647841775388", "تعاني من السكري", "نور (27 سنة)"],
-            [66, "إنعام أبو جديد", 39, "إدلب", 391, "+225564477993", "تعاني من ارتفاع في ضغط الدم ونقص تروية في القلب", "آية (26 سنة)|إبراهيم (25 سنة)|فراس (23 سنة)"],
-            [67, "حياة قورصة", 48, "إدلب", 475, "+905397109665", "تعاني من آلام في الظهر والرقبة والمفاصل ولديها تثبيت في الظهر", "صالح (36 سنة)|مصطفى (34 سنة)|فاطمة (31 سنة)|صهيب (21 سنة)|ابن (متوفى)"],
-            [68, "عائشة علي أبو علي", 36, "ريف حلب", 323, "+352681113517", "", "صهيب (متوفى)|روضة (12 سنة)"],
-            [69, "مريم عبد العال", 51, "إدلب", 2336, "+9647847018172", "تعاني من التهاب مفصل تنكسي ومرض السكري وسرطان الثدي", "بنان (22 سنة)|قدامة (16 سنة)"],
-            [70, "ازدهار الزين", 58, "ريف دمشق", 370, "+963934327842", "", "عمر (25 سنة)|رلى (22 سنة)"],
-            [71, "ليلى الأخرس", 47, "إدلب", 368, "+963935259513", "تعاني من ارتفاع في الضغط", "راما (29 سنة)|عبد السلام (27 سنة)|عبد الرحمن (21 سنة)|محمد نور (16 سنة)|سالم (9 سنة)|شاب (متوفى)"],
-            [72, "جهاد أحمد", 32, "إدلب", 875, "+212769635882", "", "سناء (12 سنة)|يوسف (10 سنة)|سفيان (8 سنة)"],
-            [73, "إسراء عثمان التيناوي", 37, "إدلب", 678, "+31616959534", "", "رهف (17 سنة)|شيماء (16 سنة)|عمار (15 سنة)|صهيب (8 سنة)"],
-            [74, "مرام التيناوي", 45, "إدلب", 678, "+352681502135", "", "فاروق (23 سنة)|مريم (22 سنة)|رقية (18 سنة)"],
-            [75, "مروة أسعد", 32, "ادلب", 357, "+963942096128", "", "عنقاء (10 سنة)|زرقاء (9 سنة)|حور (8 سنة)|شاس (7 سنة)"],
-            [76, "هدى عبد الرحمن رمضان", 43, "إدلب", 434, "+306948738687", "", "منى (17 سنة)|ليان (15 سنة)"],
-            [77, "ريان الشيخ أحمد", 25, "إدلب", 443, "+6281349213472", "تعاني من ارتفاع الشحوم واعتلال عصبي ونقص تروية", "أبرار (4 سنة)"],
-            [78, "فاطمة محمد صالح الخلف", 55, "إدلب", 150, "+447462786358", "", "محمد (34 سنة)|سهام (29 سنة)|خولة (26 سنة)|خلف (24 سنة)"],
-            [79, "ريم بشار زينة", 28, "إدلب", 384, "+352681110889", "", "هنادي (8 سنة)"],
-            [80, "أمل دعاس", 44, "إسطنبول", 1025, "+905522713871", "تعاني من قصور في الغدة وربو تحسسي", "سارة (26 سنة)|خالد (24 سنة)|أحمد (22 سنة)|البراء (17 سنة)|يمن (14 سنة)"],
-            [81, "فاطمة الزهراء عرعور", 38, "أفيون", 86, "+905346160847", "", "محمد (17 سنة)|عمر (15 سنة)"],
-            [82, "روضة رضوان", 51, "عنتاب", 195, "+905346331915", "تعاني من فتق في العمود الفقري", ""],
-            [83, "بتول ناصر", 44, "قيصري", 291, "+905526490800", "", "غياب (22 سنة)|محمد (20 سنة)|غنى (17 سنة)|راكان (13 سنة)"],
-            [84, "ديمة صالح الحجي", 34, "حلب", 243, "+963962591820", "", "فاطمة (13 سنة)|عطا الله (12 سنة)|إسلام (11 سنة)|عبد الله (10 سنة)"],
-            [85, "إيمان حسين", 31, "إدلب", 343, "+963956937008", "", "فاطمة (10 سنة)|مريم (10 سنة)|أحمد (6 سنة)"],
-            [86, "سدرة المنتهى البظ", 27, "ريف حلب", 283, "+305793356993", "", "أحمد (9 سنة)|سلسبيل (7 سنة)"],
-            [87, "علا الجبلي", 27, "تركيا", 275, "+905524433367", "تعاني من اضطراب في الغدة", "أحمد مراد (10 سنة)"],
-            [88, "شفاء دلوان", 44, "ريف حلب", 425, "+905398423984", "", "عبد الله (26 سنة)|همام (25 سنة)|أروى (23 سنة)|أحمد (21 سنة)|تميم (20 سنة)|لميس (14 سنة)"],
-            [89, "إيمان النعساني", 30, "إدلب", 34, "+963954975266", "", "عبد القادر (12 سنة)|مالك (10 سنة)|نبيلة (8 سنة)|هديل (6 سنة)"],
-            [90, "أسماء صطوف هلال", 42, "الرقة", 34, "+963969137190", "", "نور (20 سنة)|شيماء (16 سنة)|علاء (14 سنة)"],
-            [91, "أم كلثوم إسماعيل", 31, "حلب", 60, "+306931412782", "", "ابن|ابن|ابن"],
-            [92, "أمل عليان", 44, "إدلب", 268, "+9647847015696", "", "ميسرة (8 سنة)"],
-            [93, "حبيبة حسن الحلو", 45, "إدلب", 159, "+352681123545", "تعاني من انقراص في الفقرات وغضروف في الركبتين", "بيان (26 سنة)|يمان (22 سنة)|فاطمة (16 سنة)|إسماعيل (11 سنة)"],
-            [94, "حليمة أسعد", 51, "حلب", 159, "+963996245891", "تعاني من التهاب أذن وسطي مزمن", "يحيى (18 سنة)|علي (18 سنة)|رنا (17 سنة)|حسام (16 سنة)|محمد (14 سنة)|عبد الخالق (13 سنة)"],
-            [95, "حميدة محمد خير نجار", 33, "حلب", 23, "+9647824345144", "تعاني من الروماتيزم", "ضياء الدين (11 سنة - يعاني من اختلاج)"],
-            [96, "خديجة الجدعان", 45, "الحسكة", 26, "+9647842529943", "تعاني من ارتفاع في الضغط", "عبد الرحمن (19 سنة)|مريم (14 سنة)|مصعب (13 سنة)|بكر (12 سنة)|شيماء (8 سنة)"],
-            [97, "خنساء حمادو", 53, "الباب", 23, "+963938004727", "", "محمود (36 سنة)|أحمد (29 سنة)|إيمان (25 سنة)|علي (20 سنة)"],
-            [98, "رغداء دلوان", 49, "سوريا", 293, "+905528528285", "", "ريهام (31 سنة)|حذيفة (26 سنة)|همام (20 سنة)|كنانة (15 سنة)"],
-            [99, "رقية خالد الكروط", 24, "حلب", 252, "+3069750554665", "", ""],
-            [100, "ريم الفريح", 41, "حلب", 75, "+963984672614", "تعاني من الربو", "ميس (19 سنة)|عبد الله (17 سنة)|الما (11 سنة)|محمد (4 سنة)"],
-            [101, "صفاء خالد ميمة", 36, "حلب", 23, "+963967826166", "", "نديم (18 سنة)|صهيب (15 سنة - يعاني من الربو)|روان (13 سنة)|ليان (10 سنة)|محمد (2 سنة - يعاني من آفة قلبية)"],
-            [102, "علا نعيم", 41, "إدلب", 50, "+905061474024", "", "ابن (صف سادس)|ابن (صف أول)|ابن (عمره 5 سنوات)"],
-            [103, "غصون عبد العزيز", 41, "ريف دمشق", 350, "+963995051182", "", "علا (19 سنة)|محمد (17 سنة)|ميار (16 سنة)|عمر (12 سنة)|عبد الرحمن (10 سنة)"],
-            [104, "فاتن شيلوك", 35, "دمشق", 188, "+963997946629", "", "محمد زيد (18 سنة)|محمد (13 سنة)"],
-            [105, "فاطمة العيدان", 41, "ريف حلب", 125, "+905358388329", "تعاني من اضطراب في الغدة", "نور الدين (23 سنة)|شيماء (20 سنة - تعاني من إعاقة حركية)"],
-            [106, "فاطمة الفاف", 44, "ريف حلب", 159, "+963932605687", "", ""],
-            [107, "فاطمة حيلاني", 27, "حلب", 678, "+963935505146", "", "مريم (12 سنة)|جولي (10 سنة)|أحمد (8 سنة)"],
-            [108, "فاطمة أحمد بيضون", 27, "حلب", 34, "+963969474011", "تعاني من قرحة في المعدة والقولون العصبي ومشاكل في أعصاب اليد", "محمد (متوفى)|آلاء (8 سنة)"],
-            [109, "فاطمة تامر المنال", 24, "ريف حلب", 193, "+963984005872", "تعاني من الشقيقة ورمل في الكلى", ""],
-            [110, "فاطمة أمينو", 31, "إدلب", 84, "+212714676177", "", "ثلاثة متوفون في الزلزال|عبد الرحمن (3 سنة)|مريم بلشة (1 سنة)"],
-            [111, "فاطمة علي الخضر", 26, "ريف حلب", 150, "+306906963406", "", "ابن|ابن|ابن"],
-            [112, "فاطمة محمد هلال", 41, "ادلب", 57, "+905054190083", "", "ابن|ابن|ابن"],
-            [113, "منى عزوز", 40, "إدلب", 159, "+963982455049", "", "ترعى ابنة أختها (10 سنوات)"],
-            [114, "ناهد ثلجيني", 37, "حلب", 125, "+963934859476", "", "سليم (16 سنة)|عائشة (14 سنة)|رزان (10 سنة)"],
-            [115, "خولة الموسى", 46, "أنقرة", 114, "+905388568095", "", "ابن|ابن|ابن|ابن"],
-            [116, "رجاء صطوف السلوم", 28, "إزمير", 218, "+905013201448", "", "إيمان (30 سنة)|علي (28 سنة)|حسان (27 سنة)|بشرى (25 سنة)|ماجد (21 سنة)"],
-            [117, "رغد الناشف", 24, "حلب", 23, "+905379911845", "", "رهف (7 سنة)|مريم (6 سنة)"],
-            [118, "ضحى السكني", 39, "حلب", 46, "+905349858863", "", ""],
-            [119, "عائشة حمدان", 30, "إزمير", 26, "+905382808347", "", "ابن|ابن|ابن"],
-            [120, "هناء حاج علي", 31, "إسطنبول", 234, "+905314367027", "", "ليان شاكر (9 سنة)"]
+        const CURRENT_YEAR = 2026;
+
+        const familiesData = [
+            { id: 1, name: "مريم عبد العال", age: 51, location: "إدلب", total: 378, months: 8, avg: 47.25, medical: 1958, phone: "+9647847018172", status: "تعاني من سرطان الثدي، والسكري، والتهاب مفصل تنكسي.", children: ["بنان (22 عامًا)", "قدام (16 عامًا)"], living: "تعاني من سرطان الثدي وتحتاج فحوصات دورية. مصابة بداء السكري والتهاب المفاصل التنكسي. تقيم في إدلب وتكافح لتأمين مصاريف العلاج.", work: "حاصلة على إجازة جامعية، وتعمل معنا في تدريس القرآن عن بعد والحضوري، وأتمت حفظ 3 أجزاء بتقدير ممتاز." },
+            { id: 2, name: "مروة درويش", age: 44, location: "إسطنبول بتركيا", total: 125, months: 1, avg: 125, phone: "+905342238554", status: "توفيت رحمها الله (سرطان بمراحل متقدمة)", children: ["جميل (16 عامًا) - يعاني من فتحة بالقلب تتوسع", "بريفان (19 عامًا)"], living: "الزوج مريض بالقلب والضغط والسكري وغير قادر على العمل. تقيم العائلة في إسطنبول بتركيا.", work: "لم تكن قادرة على العمل لظروف المرض." },
+            { id: 3, name: "رفاه سقاطي", age: 40, location: "إدلب", total: 459, months: 9, avg: 51, phone: "+963959614020", status: "تواجه تحديات طبية مع طفلين من ذوي الاحتياجات الخاصة.", children: ["مصطفى (16 عامًا) - يعاني من ضمور في النطق", "محمد (15 عامًا)", "أحمد (15 عامًا)", "محمود (14 عامًا)", "عائشة (12 عامًا) - تعاني من فشل في النمو"], living: "تعيل 5 أبناء بمفردها في إدلب. تواجه تحديات طبية مع طفلين من ذوي الاحتياجات الخاصة.", work: "تعمل معنا في التعليم عن بعد، وأتمت حفظ 8 أجزاء بتقدير جيد." },
+            { id: 4, name: "صفاء ميمة", age: 36, location: "حلب بسوريا", total: 23, months: 1, avg: 23, phone: "+963967826166", status: "تواجه أعباء صحية ثقيلة مع أطفالها.", children: ["محمد (2 عامًا) - مريض قلب منذ الولادة", "صهيب (15 عامًا) - يعاني من الربو", "نديم (18 عامًا)", "روان (13 عامًا)", "ليان (10 عامًا)"], living: "تقيم العائلة في حلب بسوريا. تواجه أعباء صحية ثقيلة مع أطفالها.", work: "يتم إعدادها حالياً لتعمل معنا كمعلمة." },
+            { id: 5, name: "حياة قوصرة", age: 48, location: "إدلب", total: 475, months: 8, avg: 59.3, phone: "+905397109665", status: "تعاني من آلام حادة بالظهر والرقبة والمفاصل، ولديها تثبيت في الظهر بعشرة براغي.", children: ["صالح", "مصطفى", "فاطمة", "صهيب - متوفى"], living: "لديها تثبيت في الظهر بعشرة براغي وصفيحتين. فقدت أحد أبنائها وتقيم في إدلب.", work: "تعمل معنا في التعليم عن بعد، وأتمت حفظ 20 جزءًا بتقدير ممتاز." },
+            { id: 6, name: "آمنة حاج درويش", age: 44, location: "إدلب بسوريا", total: 825, months: 9, avg: 91.6, phone: "+905380791258", status: "أرملة (توفي زوجها في المعتقل).", children: ["فاطمة (22 عامًا)", "انس (20 عامًا)", "معاذ (18 عامًا)", "محمد (25 عامًا)", "حسان (16 عامًا)"], living: "تقيم في مدينة إدلب بسوريا. الأبناء ملتحقون بحلقات التعليم والتهيئة بالمقرأة.", work: "تعمل معنا في التعليم عن بعد والحضوري، وتعمل كمعلمة وموجهة، وأتمت حفظ 15 جزءًا بتقدير جيد جدًا." },
+            { id: 7, name: "وحيدة كويفاتي", age: 49, location: "حلب بسوريا", total: 922.69, months: 12, avg: 76.89, phone: "+905510973541", status: "مطلقة، لا توجد أمراض مذكورة.", children: ["غنى (19 عامًا)", "صيبا (19 عامًا)", "أحمد فراس (25 عامًا)", "عمر فراس (23 عامًا)", "عبد الملك فراس (16 عامًا)"], living: "تقيم في مدينة حلب بسوريا. الأبناء الذكور لا يقيمون معها.", work: "تعمل معنا معلمة في ضبط التلاوة، وأتمت حفظ جزء ونصف بتقدير جيد." },
+            { id: 8, name: "زهراء حرصوني", age: 44, location: "إدلب بسوريا", total: 513, months: 9, avg: 57, phone: "+963943065789", status: "تعاني من مرض السكري المزمن.", children: ["عبير (25 عامًا)", "مصطفى (23 عامًا)", "محمد (19 عامًا)", "راما (13 عامًا)"], living: "تقيم في مدينة إدلب بسوريا. تعاني من مرض السكري المزمن.", work: "تعمل معنا في إعطاء محاضرات تربوية عن بعد، وأتمت حفظ جزء ونصف بتقدير جيد." },
+            { id: 9, name: "هدى إدلبي", age: 45, location: "إدلب بسوريا", total: 273, months: 7, avg: 39, phone: "+12362451293", status: "ترعى أخاها من ذوي الاحتياجات الخاصة.", children: ["أمين (21 عامًا)", "عبد الرحمن (20 عامًا)", "عمر (14 عامًا)", "محمود (10 عامًا)", "خديجة - متوفية", "نور (19 عامًا) - ابنة أخ", "اسلام (18 عامًا) - ابنة أخ"], living: "تقيم في إدلب بسوريا. ترعى أبناء أخيها وترعى أخاها عبد اللطيف من ذوي الاحتياجات الخاصة 40 عام. لديها ابنة متوفاة.", work: "كانت تعمل معنا كمعلمة." },
+            { id: 10, name: "خديجة طحان", age: 57, location: "إدلب بسوريا", total: 584, months: 9, avg: 64.88, phone: "+9647851175244", status: "عزباء، لا توجد أمراض مذكورة.", children: [], living: "تقيم في مدينة إدلب بسوريا.", work: "تعمل معنا في التعليم عن بعد، وأتمت حفظ 12 جزءًا بتقدير ممتاز." },
+            { id: 11, name: "هدى أحمد الحلو", age: 30, location: "عنتاب بتركيا", total: 427, months: 8, avg: 53.37, phone: "+905312942798", status: "تعاني ابنتها فاطمة من مرض عصبي مزمن.", children: ["فاطمة (8 عامًا) - تعاني من اختلاج دائم وشحنات كهربائية", "عبد الله (10 عامًا)", "عبد الرحمن (10 عامًا)"], living: "تقيم العائلة في مدينة عنتاب بتركيا. تعاني ابنتها فاطمة من مرض عصبي مزمن.", work: "تعمل معنا في حلقات الحفظ وضبط التلاوة عن بُعد." },
+            { id: 12, name: "مؤمنة عبد الواحد", age: 39, location: "مرسين بتركيا", total: 183, months: 4, avg: 45.75, phone: "+905342552542", status: "تعيل طفلاً من ذوي الاحتياجات الخاصة.", children: ["عبد الله - يعاني من إعاقة جسدية وذهنية"], living: "تقيم في مدينة مرسين بتركيا. تعيل طفلاً من ذوي الاحتياجات الخاصة.", work: "يتم إعدادها حاليًا للعمل معنا كمعلمة." },
+            { id: 13, name: "خديجة الحسين", age: 31, location: "حلب بسوريا", total: 390, months: 9, avg: 43.33, phone: "+963956497214", status: "تعاني من مرض التصلب اللويحي.", children: ["غيث (13 عامًا)", "شام (9 عامًا)"], living: "تقيم في مدينة حلب بسوريا. تدرس في المرحلة الجامعية رغم إصابتها بالتصلب اللويحي.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 4 أجزاء بتقدير ممتاز." },
+            { id: 14, name: "إنعام أبو جديد", age: 39, location: "إدلب بسوريا", total: 391, months: 8, avg: 48.87, phone: "+90564477993", status: "تعاني من ضغط الدم ونقص تروية في القلب.", children: ["آية (26 عامًا)", "إبراهيم (25 عامًا)", "فراس (23 عامًا)"], living: "تقيم في مدينة إدلب بسوريا. تعاني من مشاكل صحية مزمنة في القلب والضغط.", work: "حاصلة على إجازتين في الشريعة والحقوق، وتعمل معنا معلمة عن بُعد." },
+            { id: 15, name: "فاطمة يوسف العلي", age: 53, location: "ريف حلب بسوريا", total: 534, months: 9, avg: 59.33, phone: "+963951760722", status: "تعاني من حساسية في الصدر وديسك في الظهر وتتولى رعاية والدتها المسنة.", children: [], living: "تقيم في ريف حلب بسوريا. تتولى رعاية والدتها المسنة بمفردها.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 5 أجزاء بتقدير جيد جدًا." },
+            { id: 16, name: "ريان الشيخ أحمد", age: 25, location: "إدلب بسوريا", total: 443, months: 8, avg: 55.37, phone: "+6281349213472", status: "تعاني من اعتلال عصبي، ونقص تروية بالدماغ، ومشاكل غضروف وقولون عصبي.", children: ["أبرار (4 عامًا)"], living: "تعاني من ارتفاع الشحوم الثلاثية والكوليسترول والقولون العصبي. تقيم في إدلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 14 جزءًا بتقدير ممتاز." },
+            { id: 17, name: "فاطمة أحمد بيضون", age: 27, location: "حلب بسوريا", total: 34, months: 1, avg: 34, phone: "+963969474011", status: "تعاني من قرحة معدة، وشقيقة، ومشاكل بأعصاب اليد وقولون عصبي.", children: ["محمد - متوفى", "آلاء (8 عامًا)"], living: "تعاني من القولون العصبي ومناقير. فقدت أحد طفليها وتقيم في حلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ جزء بتقدير جيد جدًا." },
+            { id: 18, name: "عهد محمد غزال", age: 65, location: "إدلب بسوريا", total: 850, months: 9, avg: 94.44, phone: "+963986577698", status: "تعاني من ديسك، وتنكس مفاصل الركبة، وساد بالعين.", children: ["نهى", "أمان", "محمد", "رزان", "ريهام", "عبد الله", "طارق"], living: "سيدة مسنة أجرت مؤخرًا عملية ساد للعيون. تقيم في إدلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 27 جزءًا بتقدير ممتاز." },
+            { id: 19, name: "فاطمة قوادري", age: 56, location: "دمشق بسوريا", total: 500, months: 8, avg: 62.5, phone: "+963981783477", status: "تعاني من نقص تروية بالقلب، وضغط، وتآكل غضروف الركبتين.", children: ["لما", "محمد خير", "رؤى", "حنين", "نور", "بنان", "جنى (16 عامًا)"], living: "تعاني من تآكل في غضروف الركبتين وأمراض قلبية. تقيم في دمشق بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 5 أجزاء بتقدير جيد." },
+            { id: 20, name: "بشرى الدرفيل", age: 64, location: "هاتاي بتركيا", total: 484, months: 7, avg: 69.14, phone: "+905353210820", status: "مسنة مريضة بالقلب.", children: ["حسين", "أحمد", "حمزة", "عبد الكريم", "عامر", "هبة", "بلال", "صبا"], living: "مسنة مريضة بالقلب تقيم في هاتاي بتركيا.", work: "طالبة معنا، وأتمت حفظ 5 أجزاء بتقدير جيد جدًا." },
+            { id: 21, name: "راضية غريبي", age: 57, location: "إدلب بسوريا", total: 584, months: 9, avg: 64.88, phone: "+963968355818", status: "تعاني من الضغط والسكري.", children: ["علا", "عهد", "وفاء", "ولاء", "دعاء", "أسماء", "أمان", "يوسف (18 عامًا)"], living: "تقيم في إدلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 4 أجزاء بتقدير جيد جدًا." },
+            { id: 22, name: "رشا رياض رحمون", age: 37, location: "إدلب بسوريا", total: 494, months: 9, avg: 54.88, phone: "+352681519672", status: "ترعى طفلة من ذوي الاحتياجات الخاصة.", children: ["ابتهال (13 عامًا) - من ذوي الاحتياجات الخاصة", "محمد (17 عامًا)", "جميل (15 عامًا)", "هادي (9 عامًا)", "أحمد (7 عامًا)"], living: "تقيم في إدلب بسوريا. ترعى طفلة من ذوي الاحتياجات الخاصة.", work: "تعمل معنا في التعليم عن بُعد والحضوري، وأتمت حفظ 5 أجزاء بتقدير جيد جدًا." },
+            { id: 23, name: "أمل دعاس", age: 44, location: "إسطنبول بتركيا", total: 1025, months: 6, avg: 170.83, phone: "+905522713871", status: "تعاني من قصور في الغدة وربو تحسسي.", children: ["سارة (26 عامًا)", "خالد (24 عامًا)", "أحمد (22 عامًا)", "البراء (17 عامًا)", "يمنى (14 عامًا)"], living: "تقيم في إسطنبول بتركيا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 16 جزءًا بتقدير ممتاز." },
+            { id: 24, name: "خديجة صوران", age: 40, location: "أفيون بتركيا", total: 321, months: 5, avg: 64.2, phone: "+905313217997", status: "تعاني من الديسك، وآلام العصب الوركي، والتهابات الأعصاب.", children: ["عائشة (16 عامًا)", "محمود (13 عامًا)", "كوثر (10 عامًا)"], living: "تقيم في أفيون بتركيا. تعاني من آلام عصبية وهيكلية مزمنة.", work: "التحقت كطالبة وتم اعتمادها كمعلمة." },
+            { id: 25, name: "عائشة آل سليمان", age: 30, location: "أضنة بتركيا", total: 600, months: 7, avg: 85.71, phone: "+905317182470", status: "تعاني من انزلاق فقرات ومشكلة بعظام الركبة.", children: ["سنن (13 عامًا)"], living: "تقيم في أضنة بتركيا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 29 جزءًا بتقدير ممتاز." },
+            { id: 26, name: "ريم الفريح", age: 41, location: "حلب بسوريا", total: 75, months: 1, avg: 75, phone: "+963984672614", status: "تعاني من مرض الربو (زوجها مريض بالسرطان).", children: ["ميس (19 عامًا)", "عبد الله (17 عامًا)", "الما (11 عامًا)", "محمد (4 عامًا)"], living: "تعاني من مرض الربو. زوجها مصاب بمرض السرطان. تقيم العائلة في حلب بسوريا.", work: "خريجة معهد إعداد مدرسين، التحقت للعمل معنا كمعلمة ثم تسربت." },
+            { id: 27, name: "حميدة محمد خير نجار", age: 33, location: "حلب بسوريا", total: 23, months: 1, avg: 23, phone: "+9647824345144", status: "تعاني من الروماتيزم.", children: ["ضياء الدين (11 عامًا) - يعاني من اختلاج"], living: "تعاني الأم من مرض الروماتيزم. تقيم في حلب بسوريا.", work: "يتم إعدادها حالياً لتكون معلمة معنا." },
+            { id: 28, name: "فاطمة العيدان", age: 41, location: "ريف حلب بسوريا", total: 125, months: 4, avg: 31.25, phone: "+905358388329", status: "تعاني من اضطراب في الغدة وتعيل ابنة من ذوي الاحتياجات الخاصة.", children: ["شيماء (20 عامًا) - تعاني من إعاقة حركية", "نور الدين (23 عامًا)"], living: "تقيم في ريف حلب بسوريا. تعيل ابنة من ذوي الاحتياجات الخاصة.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 3 أجزاء ونصف بتقدير جيد جدًا." },
+            { id: 29, name: "فاطمة أمينو", age: 31, location: "إدلب بسوريا", total: 84, months: 2, avg: 42, phone: "+212714177676", status: "فقدت ثلاثة من أطفالها بسبب الزلزال.", children: ["عبد الرحمن (3 عامًا)", "مريم بلشة (1 عامًا)", "ثلاثة أطفال - متوفين في الزلزال"], living: "فقدت ثلاثة من أطفالها بسبب الزلزال. تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 3 أجزاء بتقدير ممتاز." },
+            { id: 30, name: "رغد الناشف", age: 24, location: "حلب بسوريا", total: 23, months: 1, avg: 23, phone: "+905379911845", status: "مطلقة.", children: ["مريم (6 عامًا) - تعاني من سوء امتصاص ونقص نمو", "رهف (7 عامًا)"], living: "تقيم في حلب بسوريا.", work: "التحقت كطالبة معنا." },
+            { id: 31, name: "فريال جمعة العزو", age: 54, location: "إدلب بسوريا", total: 725, months: 8, avg: 90.62, phone: "+9647841775388", status: "تعاني من داء السكري المزمن.", children: ["نور (27 عامًا)"], living: "تعاني من داء السكري المزمن. تقيم في إدلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 20 جزءًا بتقدير ممتاز." },
+            { id: 32, name: "روضة رضوان", age: 51, location: "عنتاب بتركيا", total: 195, months: 7, avg: 27.85, phone: "+905346331915", status: "تعاني من فتق في العمود الفقري.", children: [], living: "تعاني من فتق في العمود الفقري. تقيم في عنتاب بتركيا.", work: "التحقت كطالبة معنا ." },
+            { id: 33, name: "لمياء عثمان", age: 49, location: "ريف إدلب بسوريا", total: 559, months: 9, avg: 62.11, phone: "+905362031609", status: "تعاني من ديسك في الرقبة والظهر.", children: ["هديل (29 عامًا)", "فاطمة (27 عامًا)", "محمد (26 عامًا)", "نهى (23 عامًا)", "عمر (19 عامًا)"], living: "تقيم في ريف إدلب بسوريا. تعاني من ديسك في الرقبة والظهر.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 9 أجزاء بتقدير ممتاز." },
+            { id: 34, name: "علا الجبلي", age: 27, location: "تركيا", total: 275, months: 7, avg: 39.28, phone: "+905524433367", status: "تعاني من اضطراب في الغدة.", children: ["أحمد مراد (10 عامًا)"], living: "تقيم في تركيا. تعاني من اضطراب في الغدة.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 11 جزءًا ونصف بتقدير مقبول." },
+            { id: 35, name: "مرام الإخوان", age: 49, location: "مرسين بتركيا", total: 459, months: 8, avg: 57.37, phone: "+905366387916", status: "تعاني من قصور الغدة وارتفاع مقاومة الإنسولين.", children: ["مايا (19 عامًا)", "رياضة (30 عامًا)", "اياد (27 عامًا)", "عبد الله (22 عامًا)"], living: "تقيم في مرسين بتركيا. تعاني من قصور الغدة وارتفاع مقاومة الإنسولين.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 4 أجزاء بتقدير جيد جدًا." },
+            { id: 36, name: "رنا السقا", age: 47, location: "حلب بسوريا", total: 425, months: 4, avg: 106.25, phone: "+963954851921", status: "تعاني من قصور مزمن في الغدة.", children: ["أيهم (26 عامًا)", "عماد (22 عامًا)", "فاطمة (14 عامًا)"], living: "تعاني من قصور مزمن في الغدة. تقيم العائلة في حلب بسوريا.", work: "التحقت بالمبادرة." },
+            { id: 37, name: "هزار قربي", age: 43, location: "إدلب بسوريا", total: 459, months: 9, avg: 51, phone: "+9647855860281", status: "تعاني من ارتفاع ضغط الدم.", children: ["حلا (10 عامًا)"], living: "تقيم في إدلب بسوريا. تعاني من ارتفاع ضغط الدم.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 7 أجزاء بتقدير جيد." },
+            { id: 38, name: "زهراء عبو", age: 44, location: "مرسين بتركيا", total: 206, months: 5, avg: 41.2, phone: "+905378214712", status: "تعاني من داء السكري.", children: ["علي", "عبد الملك", "محمد أمير", "إبراهيم", "محمد ربيع", "بشرى (25 عامًا)", "سدرة (23 عامًا)"], living: "تعيل 7 أبناء بمفردها وتقيم في مرسين بتركيا. تعاني من داء السكري.", work: "يتم إعدادها لتكون معلمة معنا." },
+            { id: 39, name: "ثناء ياسين", age: 53, location: "كوجالي بتركيا", total: 368, months: 6, avg: 61.33, phone: "+905393682029", status: "تعاني من ارتفاع في الضغط.", children: ["حلا (26 عامًا)", "ديمة (32 عامًا)", "خلود (30 عامًا)", "محمد (28 عامًا)", "ياسين (24 عامًا)", "أنوار (20 عامًا)", "عبود (14 عامًا)"], living: "تقيم في كوجالي بتركيا. تعيل أسرة كبيرة وتواجه أعباء صحية (ضغط الدم)", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 11 جزءًا بتقدير جيد." },
+            { id: 40, name: "حبيبة حسن الحلو", age: 45, location: "إدلب بسوريا", total: 159, months: 5, avg: 31.8, phone: "+352681123545", status: "تعاني من انقراص فقرات وغضروف بالركب ومناقير.", children: ["بيان (26 عامًا)", "يمان (22 عامًا)", "فاطمة (16 عامًا)", "إسماعيل (11 عامًا)"], living: "تعاني من آلام شديدة في العظام والعمود الفقري. تقيم في إدلب بسوريا.", work: "تعمل معنا في حلقات التهيئة والتلقين عن بُعد." },
+            { id: 41, name: "حليمة يحيى أسعد", age: 51, location: "حلب بسوريا", total: 159, months: 5, avg: 31.8, phone: "+963996245891", status: "تعاني من التهاب أذن وسطى مزمن.", children: ["علي (18 عامًا)", "يحيى (18 عامًا)", "رنا (17 عامًا)", "حسام (16 عامًا)", "محمد (14 عامًا)", "عبد الخالق (13 عامًا)"], living: "تقيم في حلب بسوريا. تقوم برعاية ستة من أبناء أخيها بالتعاون مع أخواتها.", work: "يتم إعدادها لتكون معلمة معنا." },
+            { id: 42, name: "خديجة الجدعان", age: 45, location: "الحسكة بسوريا", total: 46, months: 2, avg: 23, phone: "+9647842529943", status: "تعاني من ارتفاع ضغط الدم.", children: ["عبد الرحمن (19 عامًا)", "مريم (14 عامًا)", "مصعب (13 عامًا)", "بكر (12 عامًا)", "شيماء (8 عامًا)"], living: "تقيم العائلة في الحسكة بسوريا. تعاني من ارتفاع ضغط الدم.", work: "تعمل معنا في التعليم عن بُعد." },
+            { id: 43, name: "مريم أسعد الاسعد", age: 49, location: "إدلب بسوريا", total: 194, months: 3, avg: 64.66, phone: "+306993414549", status: "تعاني من اضطراب في الغدة.", children: ["مهند (28 عامًا)", "علي (27 عامًا)", "أسماء (25 عامًا)", "إسماعيل (20 عامًا)", "معاذ (16 عامًا)"], living: "تقيم في إدلب بسوريا. تعاني من اضطراب في الغدة.", work: "التحقت بالمبادرة كطالبة معنا." },
+            { id: 44, name: "هدى حافظ", age: 55, location: "كلس بتركيا", total: 407, months: 8, avg: 50.87, phone: "+905380139200", status: "أرملة، لا توجد أمراض مذكورة.", children: ["بلال", "أيمن", "فاطمة", "أمين"], living: "تقيم العائلة في كلس بتركيا.", work: "خريجة معهد إعداد معلمين، وتعمل معنا في التعليم عن بُعد، وأتمت حفظ 6 أجزاء بتقدير جيد جدًا." },
+            { id: 45, name: "عطاء القاسم", age: 43, location: "سكاريا بتركيا", total: 1000, months: 9, avg: 111.11, phone: "+963982604730", status: "أرملة، لا توجد أمراض مذكورة.", children: ["مريم (15 عامًا)", "محمد (24 عامًا)", "ياسين (22 عامًا)", "صفّة (17 عامًا)"], living: "تقيم في سكاريا بتركيا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 10 أجزاء بتقدير جيد جدًا." },
+            { id: 46, name: "فاطمة محمد شغالة", age: 40, location: "إدلب بسوريا", total: 800, months: 9, avg: 88.88, phone: "+9647841753280", status: "أم أيتام.", children: ["همام (10 عامًا)", "صفية (9 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "خريجة تجارة واقتصاد، وتعمل معنا كمعلمة عن بعد، وأتمت حفظ 15 جزءًا بتقدير جيد." },
+            { id: 47, name: "سهام هشام كنعان", age: 56, location: "دمشق بسوريا", total: 1175, months: 9, avg: 130.55, phone: "+963934958267", status: "أرملة.", children: ["فاتن", "تسنيم (21 عامًا)", "محمد (32 عامًا)", "رغد (28 عامًا)", "أحمد (28 عامًا)", "أحمد امين (19 عامًا)"], living: "تقيم العائلة في دمشق بسوريا.", work: "تعمل معنا كمعلمة عن بعد." },
+            { id: 48, name: "منال دعبول الصوص", age: 42, location: "إدلب بسوريا", total: 509, months: 9, avg: 56.55, phone: "+963986675173", status: "أرملة.", children: ["أحمد (22 عامًا)", "ريماز (19 عامًا)", "محمد (15 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بعد وفي خدمة ضبط التلاوة، وأتمت تسميع 14 جزءًا بتقدير جيد." },
+            { id: 49, name: "عبير صباغ", age: 47, location: "حلب بسوريا", total: 357, months: 8, avg: 44.62, phone: "+963941586637", status: "أرملة.", children: ["عبد الحميد", "ميرفت", "هديل", "أيمن (21 عامًا)", "عمر (19 عامًا)"], living: "تقيم العائلة في حلب بسوريا.", work: "يتم إعدادها حالياً لتكون معلمة معنا." },
+            { id: 50, name: "ضحى طفي", age: 42, location: "حلب بسوريا", total: 712, months: 9, avg: 79.11, phone: "+963930523026", status: "أرملة.", children: ["هبة (19 عامًا)", "محمد (24 عامًا)", "ندى (23 عامًا)", "براء (15 عامًا)", "عمر (13 عامًا)"], living: "تقيم العائلة في حلب بسوريا.", work: "تعمل معنا كمعلمة عن بعد، وأتمت حفظ 26 جزءًا بتقدير ممتاز." },
+            { id: 51, name: "غصون طحان", age: 41, location: "إدلب بسوريا", total: 330, months: 8, avg: 41.25, phone: "+9647842739738", status: "مطلقة.", children: ["البراء (10 عامًا)", "مها (9 عامًا)", "عمر (3 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة في حلقات التهيئة والتلقين عن بعد." },
+            { id: 52, name: "إيمان محمد حليمة", age: 38, location: "إدلب بسوريا", total: 336, months: 9, avg: 37.33, phone: "+306995185993", status: "أرملة.", children: ["إسحاق (17 عامًا)", "سندس (15 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة في حلقات الحفظ عن بعد." },
+            { id: 53, name: "دعاء عبد السلام عرفات", age: 32, location: "ريف حلب بسوريا", total: 568, months: 9, avg: 63.11, phone: "+306971829896", status: "غير محددة.", children: ["فاطمة الزهراء (14 عامًا)", "آمنة (11 عامًا)"], living: "تقيم العائلة في ريف حلب بسوريا.", work: "تعمل معنا كمعلمة عن بعد، وأتمت حفظ 12 جزءًا بتقدير ممتاز." },
+            { id: 54, name: "يسرى محمد علي", age: 40, location: "إدلب بسوريا", total: 515, months: 9, avg: 57.22, phone: "+963988143034", status: "أرملة.", children: ["محمد (15 عامًا)", "زين العابدين (14 عامًا)", "بيسان (12 عامًا)", "روض (11 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "خريجة كلية شريعة وتعمل معنا كمعلمة عن بعد، وأتمت حفظ 4 أجزاء بتقدير جيد جدًا." },
+            { id: 55, name: "نورة الحسن", age: 34, location: "حلب بسوريا", total: 452, months: 9, avg: 50.22, phone: "+963959348650", status: "أرملة.", children: ["سلوى (21 عامًا)", "أميرة (17 عامًا)", "ملكة (16 عامًا)", "إسماعيل (15 عامًا)", "نوري (13 عامًا)"], living: "تقيم العائلة في حلب بسوريا.", work: "تعمل معنا كمعلمة عن بعد، وأتمت حفظ سورة البقرة بتقدير جيد." },
+            { id: 56, name: "بشرى الصالح", age: 28, location: "إدلب بسوريا", total: 75, months: 1, avg: 75, phone: "+306970086038", status: "متزوجة.", children: ["عبد الرحمن (10 عامًا)", "ميلاد (5 عامًا)", "ماريا (21 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 3 أجزاء بتقدير جيد جدًا." },
+            { id: 57, name: "خديجة كرمو", age: 38, location: "حلب بسوريا", total: 305, months: 6, avg: 50.83, phone: "+963951258454", status: "فقدت طفلها إثر الزلزال المدمر.", children: ["طفل متوفى في الزلزال"], living: "تقيم العائلة في حلب بسوريا. فقدت طفلها إثر الزلزال المدمر.", work: "التحقت بالمبادرة كطالبة معنا." },
+            { id: 58, name: "رشا فاخوري", age: 30, location: "ريف حلب بسوريا", total: 319, months: 8, avg: 39.87, phone: "+905377927889", status: "أرملة.", children: ["وفاء (12 عامًا)", "عبد الله (11 عامًا)"], living: "تقيم العائلة في ريف حلب بسوريا.", work: "التحقت بالمقرأة كطالبة ويتم إعدادها لتكون معلمة معنا." },
+            { id: 59, name: "تهاني العمر", age: 34, location: "إدلب بسوريا", total: 502, months: 9, avg: 55.77, phone: "+306938093671", status: "أرملة.", children: ["رامة (10 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "خريجة معهد إعداد مدرسين، وتعمل معنا كمعلمة عن بُعد، وأتمت حفظ 18 جزءًا بتقدير ممتاز." },
+            { id: 60, name: "راما محمد زينة", age: 26, location: "إدلب بسوريا", total: 319, months: 8, avg: 39.87, phone: "+963938476240", status: "زوجة أسير.", children: ["قتيبة (7 عامًا)"], living: "تقيم العائلة في إدلب بسوريا وتفتقد لمعيلها الأسير.", work: "التحقت بالمقرأة كطالبة ويتم إعدادها لتكون معلمة معنا." },
+            { id: 61, name: "سارة فهمي زيداني", age: 33, location: "إدلب بسوريا", total: 369, months: 8, avg: 46.12, phone: "+963981338918", status: "أرملة.", children: ["إبراهيم (15 عامًا)", "أسمر (13 عامًا)", "عبد الرحمن (9 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "خريجة لغة عربية، التحقت بالمقرأة كطالبة ويتم إعدادها لتكون معلمة معنا." },
+            { id: 62, name: "علياء عصفور", age: 36, location: "مدينة الباب بسوريا", total: 573, months: 9, avg: 63.66, phone: "+306949319654", status: "أرملة.", children: ["مصطفى (16 عامًا)", "بيان (13 عامًا)"], living: "تقيم العائلة في مدينة الباب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 13 جزءًا بتقدير جيد جدًا." },
+            { id: 63, name: "سلمى محمد الفيصل", age: 52, location: "حمص بسوريا", total: 543, months: 9, avg: 60.33, phone: "+963936256490", status: "أرملة.", children: ["عبد الرحمن - متوفى", "عطية", "ليلى", "ياسين", "إبراهيم (26 عامًا)"], living: "تقيم العائلة في حمص بسوريا.", work: "خريجة معهد شرعي، وتعمل معنا في التعليم عن بُعد، وأتمت حفظ 7 أجزاء بتقدير جيد." },
+            { id: 64, name: "جميلة شعبان حميدي", age: 38, location: "عنتاب بتركيا", total: 243, months: 7, avg: 34.71, phone: "+905396353294", status: "أرملة.", children: ["فاطمة (16 عامًا)", "عبد الهادي (15 عامًا)", "أحمد (11 عامًا)", "حسن (11 عامًا)"], living: "تقيم العائلة في عنتاب بتركيا.", work: "التحقت بالمقرأة كطالبة وتعمل في التعليم عن بُعد ويتم إعدادها لتكون معلمة معنا." },
+            { id: 65, name: "خانم الرفاعي الوزير", age: 37, location: "العثمانية بتركيا", total: 409, months: 8, avg: 51.12, phone: "+905364374057", status: "أرملة.", children: [], living: "تقيم العائلة في العثمانية بتركيا.", work: "التحقت بالمقرأة كطالبة ويتم إعدادها كمعلمة معنا، وأتمت حفظ 5 أجزاء بتقدير جيد جدًا." },
+            { id: 66, name: "ليلى الأخرس", age: 47, location: "إدلب بسوريا", total: 368, months: 7, avg: 52.57, phone: "+963935259513", status: "تعاني من ارتفاع مزمن في ضغط الدم، واجهت فاجعة فقدان أحد أبنائها.", children: ["شاب متوفى", "راما (29 عامًا)", "عبد السلام (27 عامًا)", "عبد الرحمن (21 عامًا)", "محمد نور (16 عامًا)", "سلام (9 عامًا)"], living: "تعاني من ارتفاع مزمن في ضغط الدم. تقيم العائلة في إدلب بسوريا. واجهت فاجعة فقدان أحد أبنائها الشباب.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 8 أجزاء بتقدير جيد." },
+            { id: 67, name: "ساجدة الخالدي", age: 63, location: "أورفا بتركيا", total: 550, months: 8, avg: 68.75, phone: "+905438634676", status: "لديها ابن متوفى بالمعتقل.", children: ["محمد - متوفى بالمعتقل", "أكثم", "أيهم", "أنسام", "وسام"], living: "تقيم في أورفا بتركيا. أم مكلومة فقدت ابنها في المعتقل.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 7 أجزاء ونصف بتقدير جيد جدًا." },
+            { id: 68, name: "عائشة علي أبو علي", age: 36, location: "ريف حلب بسوريا", total: 323, months: 8, avg: 40.37, phone: "+352681113517", status: "أرملة.", children: ["صهيب - متوفى", "روضة (12 عامًا)"], living: "تقيم في ريف حلب بسوريا. فقدت طفلها وتعيش حاليًا مع طفلتها الوحيدة.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 3 أجزاء بتقدير ممتاز." },
+            { id: 69, name: "علا نعيمي", age: 35, location: "إدلب بسوريا", total: 50, months: 1, avg: 50, phone: "+905061474024", status: "فُجعت بوفاة زوجها في حادث سير قريب.", children: ["طالب في الصف السادس", "طالب في الصف الأول", "طفل عمره 5 سنوات"], living: "تقيم في إدلب بسوريا. فُجعت بوفاة زوجها في حادث سير قريب. تم تقديم المساعدة لها بشكل استثنائي.", work: "" },
+            { id: 70, name: "فاطمة تامر المنلا", age: 24, location: "ريف حلب بسوريا", total: 193, months: 6, avg: 32.16, phone: "+963984005872", status: "تعاني من الشقيقة ورمل في الكلى.", children: [], living: "تعاني من آلام الشقيقة ومشاكل كلوية (رمل) أرملة في سن مبكرة وتقيم في ريف حلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 5 أجزاء بتقدير ممتاز." },
+            { id: 71, name: "بديعة السقا", age: 42, location: "إسطنبول بتركيا", total: 350, months: 5, avg: 70, phone: "+905346617127", status: "أرملة.", children: ["لديها ثمانية أبناء"], living: "تقيم العائلة في إسطنبول بتركيا. تعيل بمفردها أسرة ضخمة تتكون من 8 أبناء.", work: "التحقت بالمبادرة كطالبة معنا ثم تسربت منها." },
+            { id: 72, name: "شفاء دلوان", age: 44, location: "ريف حلب بسوريا", total: 425, months: 6, avg: 70.83, phone: "+905392398482", status: "أرملة.", children: ["عبد الله (26 عامًا)", "همام (25 عامًا)", "أروى (23 عامًا)", "أحمد (21 عامًا)", "تميم (20 عامًا)", "لميس (14 عامًا)"], living: "تقيم في ريف حلب بسوريا. تعيل أسرة كبيرة العدد في ظروف صعبة.", work: "التحقت بالمقرأة كمعلمة معنا ثم كطالبة في حلقات ضبط التلاوة." },
+            { id: 73, name: "نجوى الحسين", age: 45, location: "هاتاي بتركيا", total: 609, months: 8, avg: 76.12, phone: "+905051732228", status: "أرملة.", children: ["هديل (26 عامًا)", "أماني (23 عامًا)", "زينة (19 عامًا)", "حنين (17 عامًا)", "محمد (16 عامًا)"], living: "تقيم في هاتاي بتركيا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 23 جزءًا بتقدير جيد جدًا." },
+            { id: 74, name: "غصون عبد العزيز", age: 41, location: "ريف دمشق بسوريا", total: 350, months: 5, avg: 70, phone: "+963995051182", status: "أرملة.", children: ["علا (19 عامًا)", "محمد (17 عامًا)", "ميار (16 عامًا)", "عمر (12 عامًا)", "عبد الرحمن (10 عامًا)"], living: "تقيم في ريف دمشق بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 16 جزءًا بتقدير ممتاز." },
+            { id: 75, name: "رجاء صطوف السلوم", age: 48, location: "إزمير بتركيا", total: 218, months: 5, avg: 43.6, phone: "+905013201448", status: "أرملة.", children: ["إيمان (30 عامًا)", "علي (28 عامًا)", "حسان (27 عامًا)", "بشرى (25 عامًا)", "ماجد (21 عامًا)"], living: "أرملة شابة تعيل 5 أطفال. تقيم في إزمير بتركيا.", work: "تعمل معنا كمعلمة في التعليم عن بُعد، وأتمت حفظ 5 أجزاء بتقدير ممتاز." },
+            { id: 76, name: "أروى إمام", age: 36, location: "عنتاب بتركيا", total: 357, months: 8, avg: 44.62, phone: "+905524363851", status: "أرملة.", children: ["مريم (18 عامًا)", "عبد الرؤوف (14 عامًا)"], living: "تقيم العائلة في عنتاب بتركيا.", work: "التحقت بالمبادرة كطالبة وتم اعتمادها كمعلمة معنا." },
+            { id: 77, name: "غنيمة ذا النون يونس", age: 30, location: "أنقرة بتركيا", total: 335, months: 7, avg: 47.85, phone: "+905395921496", status: "أرملة.", children: ["براء (8 عامًا)"], living: "تقيم العائلة في أنقرة بتركيا.", work: "تعمل معنا في التعليم عن بُعد ويتم إعدادها كمعلمة." },
+            { id: 78, name: "إسراء شيخو", age: 32, location: "أنقرة بتركيا", total: 359, months: 7, avg: 51.28, phone: "+905358415103", status: "أرملة.", children: ["حسن (11 عامًا)"], living: "تقيم العائلة في أنقرة بتركيا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 7 أجزاء بتقدير جيد." },
+            { id: 79, name: "وفاء حساني", age: 41, location: "تركيا", total: 750, months: 8, avg: 93.75, phone: "+905374215502", status: "أرملة.", children: ["خولة (17 عامًا)", "إكرام (14 عامًا)"], living: "تقيم العائلة في تركيا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 26 جزءًا بتقدير ممتاز." },
+            { id: 80, name: "سناء زيادة", age: 40, location: "إسطنبول بتركيا", total: 575, months: 8, avg: 71.87, phone: "+905055157578", status: "أرملة.", children: ["محمد عامر (19 عامًا)", "مجاهد (13 عامًا)", "عبد السلام (6 عامًا)"], living: "تقيم العائلة في إسطنبول بتركيا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 25 جزءًا بتقدير جيد." },
+            { id: 81, name: "عائدة فضل الدرويش", age: 43, location: "أنطاكيا بتركيا", total: 552, months: 9, avg: 61.33, phone: "+905343660115", status: "مطلقة.", children: ["صالح (16 عامًا)"], living: "تقيم العائلة في أنطاكيا بتركيا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ جزأين ونصف بتقدير جيد." },
+            { id: 82, name: "مريم دلال", age: 39, location: "إدلب بسوريا", total: 459, months: 8, avg: 57.37, phone: "+963968917374", status: "أرملة.", children: ["مرام الرفاعي (12 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "يتم إعدادها كمعلمة معنا، وتقرأ ختمة ضبط وأتمت حفظ 10 أجزاء." },
+            { id: 83, name: "مها الفرا", age: 52, location: "ليبيا", total: 573, months: 8, avg: 71.62, phone: "+218946374690", status: "مطلقة.", children: ["آلاء (23 عامًا)", "أسماء (19 عامًا)", "أنس (16 عامًا)", "رغد (14 عامًا)"], living: "تقيم العائلة في ليبيا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 9 أجزاء ونصف بتقدير ممتاز." },
+            { id: 84, name: "إلهام قوجة", age: 30, location: "إدلب بسوريا", total: 23, months: 1, avg: 23, phone: "+905364630492", status: "أرملة.", children: ["طفلان"], living: "تقيم العائلة في إدلب بسوريا.", work: "التحقت بالمقرأة كطالبة ويتم إعدادها لتكون معلمة معنا." },
+            { id: 85, name: "ربيعة الراعي", age: 31, location: "ريف إدلب بسوريا", total: 397, months: 8, avg: 49.62, phone: "+994403819909", status: "مطلقة.", children: ["طالب (13 عامًا)", "أمير (11 عامًا)"], living: "تقيم العائلة في ريف إدلب بسوريا.", work: "تعمل معنا كمعلمة حضورية ضمن مخيم حفيدات عائشة." },
+            { id: 86, name: "هنادي المصطفى", age: 23, location: "الرقة بسوريا", total: 678, months: 8, avg: 84.75, phone: "+6283128517404", status: "أرملة.", children: ["حسين البدر (3 عامًا)"], living: "تقيم العائلة في الرقة بسوريا. أرملة في سن مبكرة تعيل طفلاً صغيراً.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 12 جزءًا بتقدير ممتاز." },
+            { id: 87, name: "نسرين فتلون", age: 38, location: "حماة بسوريا", total: 1050, months: 8, avg: 131.25, phone: "+963933841985", status: "أرملة.", children: ["نور الهدى (21 عامًا)"], living: "تقيم العائلة في حماة بسوريا.", work: "خريجة شريعة، وتعمل معنا كمعلمة عن بُعد وحاصلة على عدة إجازات." },
+            { id: 88, name: "ازدهار الزين", age: 58, location: "ريف دمشق بسوريا", total: 370, months: 7, avg: 52.85, phone: "+963934327842", status: "أرملة.", children: ["عمر (25 عامًا)", "لين (22 عامًا)"], living: "تقيم العائلة في ريف دمشق بسوريا.", work: "تم اعتمادها كمعلمة معنا ثم تسربت من المبادرة." },
+            { id: 89, name: "جهاد أحمد", age: 32, location: "إدلب بسوريا", total: 875, months: 8, avg: 109.37, phone: "+212769635882", status: "أم أيتام.", children: ["سناء (12 عامًا)", "يوسف (10 عامًا)", "سفيان (8 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا في التعليم عن بُعد، وأتمت حفظ 4 أجزاء بتقدير جيد." },
+            { id: 90, name: "إسراء عثمان التيناوي", age: 37, location: "إدلب بسوريا", total: 411, months: 8, avg: 51.37, phone: "+31616959534", status: "أرملة.", children: ["رهف (17 عامًا)", "شيماء (16 عامًا)", "عمار (15 عامًا)", "صهيب (8 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 6 أجزاء بتقدير جيد." },
+            { id: 91, name: "مرام التيناوي", age: 45, location: "إدلب بسوريا", total: 475, months: 8, avg: 59.37, phone: "+352681502135", status: "أرملة.", children: ["فاروق (23 عامًا)", "مريم (22 عامًا)", "رقية (18 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 6 أجزاء بتقدير جيد جدًا." },
+            { id: 92, name: "مروة أسعد", age: 32, location: "إدلب بسوريا", total: 357, months: 8, avg: 44.62, phone: "+963942096128", status: "أرملة.", children: ["عنقاء (10 عامًا)", "زرقاء (9 عامًا)", "حور (8 عامًا)", "شاس (7 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 5 أجزاء بتقدير ممتاز." },
+            { id: 93, name: "هدى عبد الرحمن رمضان", age: 43, location: "إدلب بسوريا", total: 434, months: 8, avg: 54.25, phone: "+306948738687", status: "أرملة.", children: ["منى (17 عامًا)", "ليان (15 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 8 أجزاء بتقدير جيد." },
+            { id: 94, name: "فاطمة محمد صالح الخلف", age: 55, location: "إدلب بسوريا", total: 150, months: 2, avg: 75, phone: "+447462786358", status: "أرملة.", children: ["محمد (34 عامًا)", "سهام (29 عامًا)", "خولة (26 عامًا)", "خلف (24 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "التحقت كطالبة وتم اعتمادها كمعلمة معنا." },
+            { id: 95, name: "ريم بشار زينة", age: 28, location: "إدلب بسوريا", total: 384, months: 8, avg: 48, phone: "+352681110889", status: "أرملة.", children: ["هنادي (8 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 7 أجزاء بتقدير مقبول." },
+            { id: 96, name: "فاطمة الزهراء عرعور", age: 38, location: "أفيون بتركيا", total: 86, months: 3, avg: 28.66, phone: "+905346160847", status: "أرملة.", children: ["محمد (17 عامًا)", "عمر (15 عامًا)"], living: "تقيم العائلة في أفيون بتركيا.", work: "التحقت بالمبادرة كطالبة." },
+            { id: 97, name: "بتول ناصر", age: 44, location: "قيصري بتركيا", total: 291, months: 7, avg: 41.57, phone: "+905526490800", status: "أرملة.", children: ["غياب (22 عامًا)", "محمد (20 عامًا)", "غنى (17 عامًا)", "راكان (13 عامًا)"], living: "تقيم العائلة في قيصري بتركيا.", work: "تعمل معنا في التعليم عن بُعد كمعلمة." },
+            { id: 98, name: "ديمة صالح الحجي", age: 34, location: "حلب بسوريا", total: 243, months: 7, avg: 34.71, phone: "+963962591820", status: "أرملة.", children: ["فاطمة (13 عامًا)", "عطا الله (12 عامًا)", "إسلام (11 عامًا)", "عبد الله (10 عامًا)"], living: "تقيم العائلة في حلب بسوريا.", work: "تم اعتمادها كمعلمة معنا ثم تسربت من المبادرة." },
+            { id: 99, name: "إيمان حسين", age: 31, location: "إدلب بسوريا", total: 343, months: 7, avg: 49, phone: "+963956937008", status: "مطلقة.", children: ["فاطمة (10 عامًا)", "مريم (10 عامًا)", "أحمد (6 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 15 جزءًا بتقدير ممتاز." },
+            { id: 100, name: "سدرة المنتهى البظ", age: 27, location: "ريف حلب بسوريا", total: 283, months: 7, avg: 40.42, phone: "+963956879396", status: "أرملة.", children: ["أحمد (9 عامًا)", "سلسبيل (7 عامًا)"], living: "تقيم العائلة في ريف حلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 4 أجزاء ونصف بتقدير ممتاز." },
+            { id: 101, name: "إيمان النعساني", age: 30, location: "إدلب بسوريا", total: 34, months: 1, avg: 34, phone: "+963954975266", status: "مطلقة.", children: ["عبد القادر (12 عامًا)", "ملاك (10 عامًا)", "نبيلة (8 عامًا)", "هديل (6 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ جزأين بتقدير ممتاز." },
+            { id: 102, name: "أسماء صطوف هلال", age: 42, location: "الرقة بسوريا", total: 34, months: 1, avg: 34, phone: "+963969137190", status: "أرملة.", children: ["نور (20 عامًا)", "شيماء (16 عامًا)", "علاء (14 عامًا)"], living: "تقيم العائلة في الرقة بسوريا.", work: "يتم إعدادها لتكون معلمة معنا، وأتمت حفظ جزء بتقدير جيد جدًا." },
+            { id: 103, name: "أم كلثوم إسماعيل", age: 31, location: "حلب بسوريا", total: 80, months: 3, avg: 26.66, phone: "+306931412782", status: "أرملة.", children: ["ثلاثة أبناء"], living: "تقيم العائلة في حلب بسوريا.", work: "خريجة كلية تربية، ويتم إعدادها لتكون معلمة معنا." },
+            { id: 104, name: "أمل عليان", age: 44, location: "إدلب بسوريا", total: 268, months: 6, avg: 44.66, phone: "+9647847015696", status: "أرملة.", children: ["ميسرة (8 عامًا)"], living: "تقيم العائلة في إدلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 12 جزءًا بتقدير جيد جدًا." },
+            { id: 105, name: "خنساء حمادو", age: 53, location: "مدينة الباب بسوريا", total: 23, months: 1, avg: 23, phone: "+963938004727", status: "مطلقة.", children: ["محمود (36 عامًا)", "أحمد (29 عامًا)", "إيمان (25 عامًا)", "علي (20 عامًا)"], living: "تقيم العائلة في مدينة الباب بسوريا.", work: "يتم إعدادها لتكون معلمة معنا." },
+            { id: 106, name: "رغداء دلوان", age: 49, location: "سوريا", total: 293, months: 6, avg: 48.83, phone: "+905525288285", status: "أرملة.", children: ["ريهام (31 عامًا)", "حذيفة (26 عامًا)", "همام (20 عامًا)", "كنانة (15 عامًا)"], living: "تقيم العائلة في سوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت تسميع 6 أجزاء بتقدير ممتاز." },
+            { id: 107, name: "رقية خالد الكروط", age: 24, location: "حلب بسوريا", total: 252, months: 6, avg: 42, phone: "+306970554665", status: "أرملة شابة.", children: [], living: "أرملة شابة. تقيم في حلب بسوريا.", work: "يتم إعدادها لتكون معلمة معنا، وأتمت حفظ 11 جزءًا ونصف بتقدير جيد." },
+            { id: 108, name: "فاتن شيلوكي", age: 35, location: "دمشق بسوريا", total: 188, months: 6, avg: 31.33, phone: "+963997946629", status: "أرملة.", children: ["محمد زيد (18 عامًا)", "محمد (13 عامًا)"], living: "تقيم العائلة في دمشق بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ جزأين بتقدير جيد." },
+            { id: 109, name: "فاطمة الفاقي", age: 44, location: "ريف حلب بسوريا", total: 159, months: 5, avg: 31.8, phone: "+963932605687", status: "مطلقة.", children: [], living: "تقيم في ريف حلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ جزأين بتقدير جيد جدًا." },
+            { id: 110, name: "فاطمة حيلاني", age: 27, location: "حلب بسوريا", total: 309, months: 6, avg: 51.5, phone: "+963935505146", status: "أرملة.", children: ["مريم (12 عامًا)", "جولي (10 عامًا)", "أحمد (8 عامًا)"], living: "أرملة في سن مبكرة تعيل ثلاثة أطفال. تقيم العائلة في حلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 18 جزءًا بتقدير جيد جدًا." },
+            { id: 111, name: "فاطمة علي الخضر", age: 26, location: "ريف حلب بسوريا", total: 150, months: 2, avg: 75, phone: "+306906963406", status: "أرملة.", children: ["3 أبناء"], living: "تقيم العائلة في ريف حلب بسوريا.", work: "التحقت كطالبة معنا." },
+            { id: 112, name: "فاطمة محمد هلال", age: 32, location: "إدلب بسوريا", total: 57, months: 2, avg: 28.5, phone: "+963996043305", status: "أرملة.", children: ["3 أبناء"], living: "تقيم العائلة في إدلب بسوريا.", work: "" },
+            { id: 113, name: "منى عزوز", age: 40, location: "إدلب بسوريا", total: 159, months: 5, avg: 31.8, phone: "+963982455049", status: "ترعى ابنة أختها.", children: ["ابنة أخت (10 سنوات)"], living: "تقيم في إدلب بسوريا. تقوم برعاية ابنة أختها بمفردها.", work: "خريجة شريعة، وتعمل معنا كمعلمة مسار ضبط التلاوة." },
+            { id: 114, name: "ناهد تلجبيني", age: 37, location: "حلب بسوريا", total: 125, months: 4, avg: 31.25, phone: "+963934859476", status: "أرملة.", children: ["سليم (16 عامًا)", "عائشة (14 عامًا)", "رزان (10 عامًا)"], living: "تقيم العائلة في حلب بسوريا.", work: "يتم إعدادها لتكون معلمة معنا." },
+            { id: 115, name: "خولة الموسى", age: 46, location: "أنقرة بتركيا", total: 114, months: 4, avg: 28.5, phone: "+905388568095", status: "أرملة.", children: ["4 أبناء"], living: "تقيم العائلة في أنقرة بتركيا.", work: "التحقت كطالبة معنا." },
+            { id: 116, name: "ضحى السكني", age: 39, location: "حلب بسوريا", total: 46, months: 2, avg: 23, phone: "+905349858863", status: "مطلقة.", children: [], living: "تقيم في حلب بسوريا.", work: "يتم إعدادها لتكون معلمة معنا." },
+            { id: 117, name: "عائشة حمدان", age: 30, location: "إزمير بتركيا", total: 46, months: 2, avg: 23, phone: "+905382808347", status: "أرملة.", children: ["3 أبناء"], living: "تقيم العائلة في إزمير بتركيا.", work: "يتم إعدادها لتكون معلمة معنا." },
+            { id: 118, name: "هناء حاجي علي", age: 31, location: "إسطنبول بتركيا", total: 234, months: 4, avg: 58.5, phone: "+905314367027", status: "أرملة.", children: ["ليان شاكر (9 عامًا)"], living: "تقيم العائلة في إسطنبول بتركيا.", work: "خريجة معهد شرعي، وتعمل معنا كمعلمة عن بُعد، وأتمت حفظ 16 جزءًا بتقدير ممتاز." },
+            { id: 119, name: "آمنة العبد الله", age: 39, location: "أورفا بتركيا", total: 432, months: 9, avg: 48, phone: "+905377035743", status: "أرملة.", children: ["نور الهدى (15 عامًا)", "عبد الله (11 عامًا)", "أحمد (10 عامًا)"], living: "تقيم العائلة في أورفا بتركيا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 4 أجزاء بتقدير ممتاز." },
+            { id: 120, name: "هلا الصالح", age: 35, location: "حلب بسوريا", total: 600, months: 9, avg: 66.66, phone: "+905345294114", status: "أرملة.", children: ["مصطفى (18 عامًا)", "هبة (15 عامًا)", "نور الدين (13 عامًا)"], living: "تقيم العائلة في حلب بسوريا.", work: "تعمل معنا كمعلمة عن بُعد، وأتمت حفظ 11 جزءًا بتقدير جيد جدًا." }
         ];
 
-        let familiesData = [];
+        const SICK_WIDOW_KEYWORDS = ['سرطان', 'توفيت', 'إعاقة', 'شلل', 'فشل', 'ديسك', 'تصلب', 'قلب', 'سكري', 'ضغط', 'تنكس', 'روماتيزم', 'غضروف', 'اعتلال', 'قصور', 'شقيقة', 'ربو', 'فقرات', 'تآكل', 'أعصاب', 'كلى'];
+        const SICK_CHILD_KEYWORDS = ['يعاني', 'مريض', 'إعاقة', 'اختلاج', 'قلب', 'متوف', 'فشل', 'ضمور', 'سوء امتصاص', 'نقص نمو', 'احتياجات', 'عصبي'];
 
-        const sickKeywords = ["متوف", "إعاق", "فشل", "اختلاج", "قلب", "ربو", "مرض", "آفة", "احتياجات", "ضمور", "سرطان"];
+        function getSeverityScore(family) {
+            let score = 0;
 
-        function processData() {
-            familiesData = rawData.map(row => {
-                const childrenArray = row[7] ? row[7].split('|').filter(c => c.trim() !== '') : [];
-                return {
-                    id: row[0],
-                    name: row[1],
-                    age: row[2],
-                    location: row[3],
-                    total: parseFloat(row[4]),
-                    phone: row[5] || "غير متوفر",
-                    health: row[6].trim(),
-                    children: childrenArray
-                };
+            if (family.status) {
+                if (SICK_WIDOW_KEYWORDS.some(kw => family.status.includes(kw))) {
+                    score += 100; 
+                }
+            }
+
+            if (family.children && family.children.length > 0) {
+                let childHasIssue = family.children.some(child =>
+                    SICK_CHILD_KEYWORDS.some(kw => child.includes(kw))
+                );
+                if (childHasIssue) {
+                    score += 50; 
+                }
+            }
+
+            return score;
+        }
+
+        function isSickWidow(statusStr) {
+            if (!statusStr) return false;
+            return SICK_WIDOW_KEYWORDS.some(kw => statusStr.includes(kw));
+        }
+
+        function isSickChild(childStr) {
+            if (!childStr) return false;
+            return SICK_CHILD_KEYWORDS.some(kw => childStr.includes(kw));
+        }
+
+        function sortFamilies(familiesArray) {
+            return [...familiesArray].sort((a, b) => getSeverityScore(b) - getSeverityScore(a));
+        }
+
+        function calculateStats() {
+            let totalEx = 0;
+            let childrenCount = 0;
+
+            familiesData.forEach(f => {
+                totalEx += f.total;
+                childrenCount += f.children ? f.children.length : 0;
             });
-            updateStats();
-            renderFamilies(familiesData);
+
+            document.getElementById('totalExpenses').textContent = `$${totalEx.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}`;
+            document.getElementById('totalFamilies').textContent = familiesData.length;
+            document.getElementById('totalChildren').textContent = childrenCount;
         }
 
-        function isWidowSick(family) {
-            return family.health.length > 0;
-        }
-
-        function isChildSick(childString) {
-            return sickKeywords.some(keyword => childString.includes(keyword));
-        }
-
-        function hasSickChild(family) {
-            return family.children.some(child => isChildSick(child));
-        }
-
-        function getSortedFamilies(data) {
-            return [...data].sort((a, b) => {
-                const aSick = isWidowSick(a);
-                const bSick = isWidowSick(b);
-                if (aSick && !bSick) return -1;
-                if (!aSick && bSick) return 1;
-
-                const aSickChild = hasSickChild(a);
-                const bSickChild = hasSickChild(b);
-                if (aSickChild && !bSickChild) return -1;
-                if (!aSickChild && bSickChild) return 1;
-
-                return b.total - a.total;
-            });
-        }
-
-        function updateStats() {
-            const totalExpense = familiesData.reduce((sum, f) => sum + f.total, 0);
-            const totalFamilies = familiesData.length;
-            const totalChildren = familiesData.reduce((sum, f) => sum + f.children.length, 0);
-
-            const statsHtml = `
-                <div class="stat-card primary-stat">
-                    <div class="stat-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-                    <div class="stat-content">
-                        <div class="stat-title">إجمالي المصروفات</div>
-                        <div class="stat-value">$${totalExpense.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-                    <div class="stat-content">
-                        <div class="stat-title">إجمالي العائلات (الأرامل)</div>
-                        <div class="stat-value">${totalFamilies}</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fa-solid fa-child"></i></div>
-                    <div class="stat-content">
-                        <div class="stat-title">إجمالي الأبناء (الأيتام)</div>
-                        <div class="stat-value">${totalChildren}</div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('topStats').innerHTML = statsHtml;
-        }
-
-        function renderFamilies(data) {
+        function renderFamilies(familiesArray) {
             const grid = document.getElementById('familiesGrid');
-            const sortedData = getSortedFamilies(data);
+            grid.innerHTML = '';
 
-            grid.innerHTML = sortedData.map(family => {
-                const isSick = isWidowSick(family);
-                const healthClass = isSick ? 'is-sick' : 'is-healthy';
-                const healthText = isSick ? family.health : 'حالة صحية طبيعية';
-                
-                return `
-                    <div class="family-card">
-                        <div class="card-header">
-                            <div class="avatar">${family.name.charAt(0)}</div>
-                            <div class="card-title-group">
-                                <div class="card-name">${family.name}</div>
-                                <div class="card-location"><i class="fa-solid fa-location-dot"></i> ${family.location}</div>
-                            </div>
+            familiesArray.forEach(family => {
+                const isSick = isSickWidow(family.status);
+                const statusClass = isSick ? 'status-danger' : 'status-normal';
+                const firstLetter = family.name.trim().charAt(0);
+
+                const card = document.createElement('div');
+                card.className = 'family-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="avatar-circle">${firstLetter}</div>
+                        <div class="family-info">
+                            <h3>${family.name}</h3>
+                            <p><i class="fa-solid fa-location-dot"></i> ${family.location}</p>
                         </div>
-                        <div class="card-health ${healthClass}">
-                            <i class="fa-solid ${isSick ? 'fa-staff-snake' : 'fa-check-circle'}"></i> ${healthText}
-                        </div>
-                        <div class="card-expense">
-                            <i class="fa-solid fa-money-bill-wave"></i> $${family.total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                        </div>
+                    </div>
+                    <div class="status-box ${statusClass}">
+                        ${isSick ? '<i class="fa-solid fa-notes-medical"></i> ' : ''}
+                        ${family.status || 'لا توجد تفاصيل صحية مذكورة.'}
+                    </div>
+                    <div class="card-footer">
+                        <span class="total-amount">$${family.total}</span>
                         <button class="btn-details" onclick="openModal(${family.id})">عرض التفاصيل</button>
                     </div>
                 `;
-            }).join('');
+                grid.appendChild(card);
+            });
         }
 
         function openModal(id) {
             const family = familiesData.find(f => f.id === id);
             if (!family) return;
 
-            document.getElementById('modalTitle').textContent = `${family.name} - ${family.location}`;
+            document.getElementById('modalName').textContent = family.name;
+            document.getElementById('modalLocation').textContent = `(${family.location})`;
+            document.getElementById('modalAge').textContent = `${family.age} عاماً`;
+            document.getElementById('modalChildrenCount').textContent = family.children ? family.children.length : 0;
+            document.getElementById('modalPhone').textContent = family.phone || '-';
+
+            document.getElementById('modalTotal').textContent = `$${family.total || 0}`;
+            document.getElementById('modalMonths').textContent = family.months ? `${family.months} أشهر` : '-';
+            document.getElementById('modalAvg').textContent = family.avg ? `$${family.avg}` : '-';
             
-            document.getElementById('modalStats').innerHTML = `
-                <div class="modal-stat-box">
-                    <span>العمر التقديري</span>
-                    <strong>${family.age} سنة</strong>
-                </div>
-                <div class="modal-stat-box">
-                    <span>عدد الأبناء</span>
-                    <strong>${family.children.length}</strong>
-                </div>
-                <div class="modal-stat-box">
-                    <span>رقم الجوال</span>
-                    <strong style="direction: ltr; display: inline-block;">${family.phone}</strong>
-                </div>
-            `;
-
-            // Sort children: Sick first
-            const sortedChildren = [...family.children].sort((a, b) => {
-                const aSick = isChildSick(a);
-                const bSick = isChildSick(b);
-                if (aSick && !bSick) return -1;
-                if (!aSick && bSick) return 1;
-                return 0;
-            });
-
-            const childrenListEl = document.getElementById('modalChildrenList');
-            if (sortedChildren.length === 0) {
-                childrenListEl.innerHTML = `<div class="empty-state">لا يوجد أبناء مسجلين</div>`;
+            const medicalDiv = document.getElementById('modalMedicalDiv');
+            if (family.medical) {
+                medicalDiv.style.display = 'block';
+                document.getElementById('modalMedical').textContent = `$${family.medical}`;
             } else {
-                childrenListEl.innerHTML = sortedChildren.map(child => {
-                    const critical = isChildSick(child);
-                    const icon = critical ? 'fa-notes-medical' : 'fa-user';
-                    const cssClass = critical ? 'is-critical' : '';
-                    return `
-                        <div class="child-item ${cssClass}">
-                            <div class="child-icon"><i class="fa-solid ${icon}"></i></div>
-                            <div class="child-name">${child}</div>
-                        </div>
-                    `;
-                }).join('');
+                medicalDiv.style.display = 'none';
             }
 
-            document.getElementById('modalOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.getElementById('modalLiving').textContent = family.living || 'لا توجد تفاصيل معيشية أو صحية مدرجة.';
+            
+            const workDiv = document.getElementById('modalWorkDiv');
+            if (family.work) {
+                workDiv.style.display = 'block';
+                document.getElementById('modalWork').textContent = family.work;
+            } else {
+                workDiv.style.display = 'none';
+            }
+
+            const childrenList = document.getElementById('modalChildrenList');
+            childrenList.innerHTML = '';
+
+            if (family.children && family.children.length > 0) {
+                const sickKids = family.children.filter(c => isSickChild(c));
+                const healthyKids = family.children.filter(c => !isSickChild(c));
+
+                const sortedChildren = [...sickKids, ...healthyKids];
+
+                sortedChildren.forEach(child => {
+                    const isSick = isSickChild(child);
+                    const childClass = isSick ? 'child-danger' : 'child-normal';
+                    const icon = isSick ? 'fa-kit-medical' : 'fa-child';
+                    
+                    const el = document.createElement('div');
+                    el.className = `child-item ${childClass}`;
+                    el.innerHTML = `
+                        <i class="fa-solid ${icon} child-icon"></i>
+                        <span>${child}</span>
+                    `;
+                    childrenList.appendChild(el);
+                });
+            } else {
+                childrenList.innerHTML = '<div class="child-item child-normal">لا يوجد أبناء مسجلين</div>';
+            }
+
+            document.getElementById('familyModal').classList.add('active');
         }
 
         function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-            document.body.style.overflow = '';
+            document.getElementById('familyModal').classList.remove('active');
         }
 
-        document.getElementById('searchInput').addEventListener('input', (e) => {
+        document.getElementById('searchInput').addEventListener('input', function(e) {
             const term = e.target.value.toLowerCase();
             const filtered = familiesData.filter(f => 
                 f.name.toLowerCase().includes(term) || 
                 f.location.toLowerCase().includes(term) || 
-                f.health.toLowerCase().includes(term)
+                (f.status && f.status.toLowerCase().includes(term))
             );
-            renderFamilies(filtered);
+            renderFamilies(sortFamilies(filtered));
         });
 
-        // Init
-        window.addEventListener('DOMContentLoaded', processData);
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateStats();
+            const sortedData = sortFamilies(familiesData);
+            renderFamilies(sortedData);
+        });
     </script>
 </body>
 </html>
